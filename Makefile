@@ -36,10 +36,10 @@ figures:
 	$(PY) $(SCR)/build_figures.py
 
 manuscript:
-	cd $(MAN) && pdflatex -interaction=nonstopmode main_eca.tex \
-	  && bibtex main_eca \
-	  && pdflatex -interaction=nonstopmode main_eca.tex \
-	  && pdflatex -interaction=nonstopmode main_eca.tex
+	cd $(MAN) && pdflatex -interaction=nonstopmode main.tex \
+	  && bibtex main \
+	  && pdflatex -interaction=nonstopmode main.tex \
+	  && pdflatex -interaction=nonstopmode main.tex
 
 manifest:
 	$(PY) $(SCR)/build_manifest.py

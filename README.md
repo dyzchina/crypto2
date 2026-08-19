@@ -16,8 +16,8 @@ reproducibility_bundle_v5.0/
 ├── MANIFEST.json          (SHA-256 of every artefact)
 ├── data_charter.md        (L1 REAL / L2 PROXY / L3 SIM-GROUNDED classification)
 ├── manuscript/
-│   ├── main_eca.tex       (34 pp, submission-ready)
-│   ├── main_eca.pdf       (compiled)
+│   ├── main.tex       (34 pp, submission-ready)
+│   ├── main.pdf       (compiled)
 │   ├── cover_letter.tex
 │   ├── cover_letter.pdf
 │   └── refs.bib           (36 journal references, no books, no reports)

@@ -8,7 +8,7 @@ Charter version: v5.0 (2026-08-17).
 
 This charter classifies every empirical claim in the manuscript into
 one of three data levels. The classification is binding: any table,
-figure, or numerical statement in `manuscript/main_eca.tex` carries
+figure, or numerical statement in `manuscript/main.tex` carries
 the level of its underlying source. Level-3 items are explicitly
 flagged as *grounded simulations* in the manuscript body; the v3.0
 manuscript contains **no L3 item**, and no headline result in any

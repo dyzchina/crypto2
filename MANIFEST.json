@@ -3,15 +3,15 @@
   "snapshot_date": "2026-08-07",
   "manifest_generated": "2026-08-14",
   "total_files": 47,
-  "total_bytes": 2063457,
+  "total_bytes": 2063429,
   "files": [
     {
-      "path": "manuscript/main_eca.pdf",
+      "path": "manuscript/main.pdf",
       "bytes": 721737,
-      "sha256": "645a7ad0edda056f57aa2458d882d342976ce63723cbac76105bec8ab7c92cbe"
+      "sha256": "1e2c47314ce218c3270b967d6c53e6fab2047c76e89428141cea169062bf455f"
     },
     {
-      "path": "manuscript/main_eca.tex",
+      "path": "manuscript/main.tex",
       "bytes": 74767,
       "sha256": "17b262fa768af1245fe84b790b7c790303818c8a71de8d974a1564eff27cc721"
     },
@@ -227,18 +227,18 @@
     },
     {
       "path": "data_charter.md",
-      "bytes": 5444,
-      "sha256": "5137afa1077bd3eb43b6bee57a8f0e2e9ae4fbe67f4cb9e97efd3b0250d2641d"
+      "bytes": 5440,
+      "sha256": "1eb88ee00cbc39f673cdd12bed3b33af34bc848c98f5048dfbd9e27f34451529"
     },
     {
       "path": "Makefile",
-      "bytes": 1435,
-      "sha256": "0d4300032af4f086b1fc9a481f04ed0822f3f8d6cd187a98f9a430e012ce666a"
+      "bytes": 1419,
+      "sha256": "aa7ced3c9ff4ea89dd85505fef5b6d4880177286eab1066ec5402ad5a208a9c0"
     },
     {
       "path": "README.md",
-      "bytes": 4006,
-      "sha256": "e5979a6e5be6b1447646a576108d7ea6561548252a1f5a42827cf83a4418b78a"
+      "bytes": 3998,
+      "sha256": "ef8463330c86bdb286515b829a70c60d84fbbac2c1ee622c08a2b31c429ac718"
     }
   ]
 }
