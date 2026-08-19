@@ -1,0 +1,17 @@
+\begin{tabular}{@{}lrr@{}}
+\toprule
+ & (1) OLS & (2) Venue-Ccy FE \\
+\midrule
+$\hat\beta$ (slope) & -0.066 & -0.095 \\
+95\% block-bootstrap CI (block=3) & $[-0.589, 0.028]$ & $[-0.500, -0.017]$ \\
+95\% pairs-bootstrap CI (i.i.d.) & $[-0.562, 0.040]$ & $[-0.470, -0.019]$ \\
+$R^{2}$ & 0.007 & 0.406 \\
+\midrule
+$n$ (events) & 130 & 130 \\
+Panels (venue$\times$ccy) & 1 & 7 \\
+Politis--White auto block length & \multicolumn{2}{c}{1} \\
+Bootstrap block size (used) & \multicolumn{2}{c}{3} \\
+Pearson $\rho$ & \multicolumn{2}{c}{-0.082} \\
+Theoretical rate range $[-1/2, -1/6]$ overlaps FE CI & \multicolumn{2}{c}{Yes} \\
+\bottomrule
+\end{tabular}

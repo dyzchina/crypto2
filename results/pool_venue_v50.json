@@ -1,0 +1,28 @@
+{
+  "per_venue": {
+    "deribit_BTC": {
+      "n": 828,
+      "theta_med": 0.002001746810822255
+    },
+    "deribit_ETH": {
+      "n": 706,
+      "theta_med": 0.0016856105760656534
+    }
+  },
+  "btc_pool": {
+    "n": 828,
+    "theta_med": 0.002001746810822255,
+    "regime": "sticky"
+  },
+  "eth_pool": {
+    "n": 706,
+    "theta_med": 0.0016856105760656534,
+    "regime": "sticky"
+  },
+  "full_pool": {
+    "n": 1534,
+    "theta_med": 0.0007921253251656222,
+    "regime": "sticky"
+  },
+  "theta_star_ref": 0.26
+}

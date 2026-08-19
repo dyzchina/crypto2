@@ -1,0 +1,11 @@
+\begin{tabular}{@{}lrrr@{}}
+\toprule
+Recovery scheme & Mean CV RMSE (IV) & Std of RMSE & Relative to best \\
+\midrule
+Thin-plate spline & 0.0087 & 0.0010 & 1.000 \\
+Gatheral SSVI \citep{GatheralJacquier2014} & 0.2512 & 0.0086 & 28.983 \\
+Decoupled reconstruction (Algorithm 1) & 0.1188 & 0.0065 & 13.709 \\
+\midrule
+\multicolumn{4}{@{}l}{\footnotesize $n = 828$ Deribit BTC option quotes (2026-08-07); 5-fold cross-validation.} \\
+\bottomrule
+\end{tabular}

@@ -1,0 +1,60 @@
+{
+  "deribit_BTC": {
+    "venue": "Deribit",
+    "ccy": "BTC",
+    "n_instruments": 828,
+    "n_two_way": 0,
+    "n_distinct_strikes": 89,
+    "n_distinct_expiries": 12,
+    "iv_median_pct": 40.19,
+    "iv_p05_pct": 24.24,
+    "iv_p95_pct": 69.72,
+    "spot_ref": 64958.63,
+    "logm_min": -1.178,
+    "logm_max": 1.595
+  },
+  "deribit_ETH": {
+    "venue": "Deribit",
+    "ccy": "ETH",
+    "n_instruments": 706,
+    "n_two_way": 0,
+    "n_distinct_strikes": 88,
+    "n_distinct_expiries": 12,
+    "iv_median_pct": 55.37,
+    "iv_p05_pct": 35.06,
+    "iv_p95_pct": 93.43,
+    "spot_ref": 1915.78,
+    "logm_min": -0.873,
+    "logm_max": 2.122
+  },
+  "bybit_BTC": {
+    "venue": "Bybit",
+    "ccy": "BTC",
+    "n_instruments": 588
+  },
+  "bybit_ETH": {
+    "venue": "Bybit",
+    "ccy": "ETH",
+    "n_instruments": 464
+  },
+  "bybit_SOL": {
+    "venue": "Bybit",
+    "ccy": "SOL",
+    "n_instruments": 216
+  },
+  "okx_BTC": {
+    "venue": "OKX",
+    "ccy": "BTC",
+    "n_instruments": 1102
+  },
+  "okx_ETH": {
+    "venue": "OKX",
+    "ccy": "ETH",
+    "n_instruments": 946
+  },
+  "okx_SOL": {
+    "venue": "OKX",
+    "ccy": "SOL",
+    "n_instruments": 110
+  }
+}

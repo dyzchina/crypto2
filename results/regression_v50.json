@@ -1,0 +1,40 @@
+{
+  "n_events": 130,
+  "beta_ols": -0.06586569270354654,
+  "ci_ols": [
+    -0.589203933872047,
+    0.02813644756217373
+  ],
+  "beta_fe": -0.0946880014908138,
+  "ci_fe": [
+    -0.500044089849733,
+    -0.016647364478036684
+  ],
+  "ci_ols_pairs": [
+    -0.5617990160568506,
+    0.03959224856731687
+  ],
+  "ci_fe_pairs": [
+    -0.4696481532588576,
+    -0.018571223279978108
+  ],
+  "pearson_rho": -0.08173585193406485,
+  "r2_ols": 0.0066807494913871945,
+  "r2_fe": 0.406008995927836,
+  "politis_white_block": 1,
+  "theoretical_benchmark_range_lo": -0.5,
+  "theoretical_benchmark_range_hi": -0.16666666666666666,
+  "theoretical_benchmark_range_in_ci_fe": true,
+  "n_venues": 7,
+  "venues": [
+    "binance_BTC",
+    "binance_ETH",
+    "binance_SOL",
+    "bybit_BTC",
+    "bybit_ETH",
+    "bybit_SOL",
+    "deribit_ETH"
+  ],
+  "bootstrap_B": 2000,
+  "block_size": 3
+}

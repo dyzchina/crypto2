@@ -1,0 +1,26 @@
+{
+  "stable_dev_median_by_sym": {
+    "DAI": 0.016100000000000003,
+    "FDUSD": 0.0019000000000000128,
+    "USDC": 0.0007500000000000284,
+    "TUSD": 0.0018000000000000238
+  },
+  "phi_anchor": 0.005137500000000017,
+  "single_asset_btc": {
+    "n": 828,
+    "theta_med": 0.002001746810822255,
+    "regime": "sticky"
+  },
+  "two_asset_btc_eth": {
+    "n": 1534,
+    "theta_med": 0.0007921253251656222,
+    "regime": "sticky"
+  },
+  "three_asset_pool": {
+    "n": 1534,
+    "theta_med": 0.013867725141213703,
+    "regime": "sticky",
+    "composition": "BTC_anchored(+phi)(828)+ETH_anchored(-phi)(706); real quotes only, no synthetic points"
+  },
+  "theta_star_ref": 0.26
+}

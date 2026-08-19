@@ -1,0 +1,57 @@
+{
+  "sweep_levels": [
+    0.0,
+    1e-05,
+    0.0001,
+    0.000181,
+    0.001,
+    0.01,
+    0.1
+  ],
+  "baseline_phi": 0.000181,
+  "results": [
+    {
+      "phi_anchor": 0.0,
+      "n": 1534,
+      "theta_med": 0.0007921253251656222,
+      "regime": "sticky"
+    },
+    {
+      "phi_anchor": 1e-05,
+      "n": 1534,
+      "theta_med": 0.0007620038268002229,
+      "regime": "sticky"
+    },
+    {
+      "phi_anchor": 0.0001,
+      "n": 1534,
+      "theta_med": 0.001512824286574489,
+      "regime": "sticky"
+    },
+    {
+      "phi_anchor": 0.000181,
+      "n": 1534,
+      "theta_med": 0.0019293967865526562,
+      "regime": "sticky"
+    },
+    {
+      "phi_anchor": 0.001,
+      "n": 1534,
+      "theta_med": 0.004344777561541467,
+      "regime": "sticky"
+    },
+    {
+      "phi_anchor": 0.01,
+      "n": 1534,
+      "theta_med": 0.024622314181854527,
+      "regime": "sticky"
+    },
+    {
+      "phi_anchor": 0.1,
+      "n": 1534,
+      "theta_med": 0.07319759028367319,
+      "regime": "sticky"
+    }
+  ],
+  "note": "phi_anchor sensitivity: theta_pool = f(phi_anchor). If theta_pool is monotone in phi_anchor, the '3-asset lift' is a phi-scaled feature rather than a pure geometric effect."
+}

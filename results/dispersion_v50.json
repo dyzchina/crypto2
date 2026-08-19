@@ -1,0 +1,22 @@
+{
+  "BTC": {
+    "n_directions": 828,
+    "delta_ref": 0.06804,
+    "theta_star_ref": 0.26085,
+    "theta_min": 0.0,
+    "theta_med": 0.002002,
+    "theta_trim": 0.003724,
+    "theta_mean": 0.00468,
+    "regime": "sticky"
+  },
+  "ETH": {
+    "n_directions": 706,
+    "delta_ref": 0.07252,
+    "theta_star_ref": 0.2693,
+    "theta_min": 0.0,
+    "theta_med": 0.001686,
+    "theta_trim": 0.004146,
+    "theta_mean": 0.005601,
+    "regime": "sticky"
+  }
+}
