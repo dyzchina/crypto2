@@ -27,3 +27,7 @@ manuscript/cover_letter*.docx
 manuscript/cover_letter*.md
 manuscript/cover_letter*.tex
 manuscript/cover_letter*.pdf
+
+# Office lock files
+~$*
+.~lock.*

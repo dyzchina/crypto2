@@ -1,20 +1,10 @@
 {
-  "bundle_version": "v2.0",
+  "bundle_version": "v5.0",
   "snapshot_date": "2026-08-07",
-  "manifest_generated": "2026-08-14",
-  "total_files": 50,
-  "total_bytes": 2088591,
+  "manifest_generated": "2026-08-19",
+  "total_files": 47,
+  "total_bytes": 2063665,
   "files": [
-    {
-      "path": "manuscript/cover_letter_nature.docx",
-      "bytes": 15112,
-      "sha256": "c44eb932ef6816d0ad774fa834c7579d9ad4402c3e0cfe182970c4615ae19a6d"
-    },
-    {
-      "path": "manuscript/cover_letter_nature.md",
-      "bytes": 9888,
-      "sha256": "ea34baf7d2d665afd99f0aed3b6c12e573fac0fa1bb172b3e600640767b51bd6"
-    },
     {
       "path": "manuscript/main.pdf",
       "bytes": 721737,
@@ -29,11 +19,6 @@
       "path": "manuscript/refs.bib",
       "bytes": 9504,
       "sha256": "d59a45661fefb720e18c5e63b9245061bfa4a0cc9eace506b27f3df05cb70823"
-    },
-    {
-      "path": "manuscript/~$ver_letter_nature.docx",
-      "bytes": 162,
-      "sha256": "6f19ece008d7408e8b23948027061052b1aca43fd2d78a07b5e8ce8979f4b2cc"
     },
     {
       "path": "scripts/build_01_snapshot.py",
@@ -97,8 +82,8 @@
     },
     {
       "path": "scripts/build_manifest.py",
-      "bytes": 1632,
-      "sha256": "4aae6b2e101d7359a270605d5571ba9386a697b1680615d9997bb7d89838c3af"
+      "bytes": 1868,
+      "sha256": "84f218d1d7cdc7f8325f5eed609c8772d4518c7431bf2eade39d08d95f59f273"
     },
     {
       "path": "results/benchmark_v50.json",
