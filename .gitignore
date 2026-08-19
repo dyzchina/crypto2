@@ -21,3 +21,9 @@ __pycache__/
 .vscode/
 .idea/
 *.swp
+
+# Cover letters (journal-specific, not part of the code/manuscript bundle)
+manuscript/cover_letter*.docx
+manuscript/cover_letter*.md
+manuscript/cover_letter*.tex
+manuscript/cover_letter*.pdf

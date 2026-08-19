@@ -2,8 +2,8 @@
   "bundle_version": "v2.0",
   "snapshot_date": "2026-08-07",
   "manifest_generated": "2026-08-14",
-  "total_files": 49,
-  "total_bytes": 2088429,
+  "total_files": 50,
+  "total_bytes": 2088591,
   "files": [
     {
       "path": "manuscript/cover_letter_nature.docx",
@@ -29,6 +29,11 @@
       "path": "manuscript/refs.bib",
       "bytes": 9504,
       "sha256": "d59a45661fefb720e18c5e63b9245061bfa4a0cc9eace506b27f3df05cb70823"
+    },
+    {
+      "path": "manuscript/~$ver_letter_nature.docx",
+      "bytes": 162,
+      "sha256": "6f19ece008d7408e8b23948027061052b1aca43fd2d78a07b5e8ce8979f4b2cc"
     },
     {
       "path": "scripts/build_01_snapshot.py",
