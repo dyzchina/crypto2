@@ -2,9 +2,19 @@
   "bundle_version": "v2.0",
   "snapshot_date": "2026-08-07",
   "manifest_generated": "2026-08-14",
-  "total_files": 47,
-  "total_bytes": 2063429,
+  "total_files": 49,
+  "total_bytes": 2088429,
   "files": [
+    {
+      "path": "manuscript/cover_letter_nature.docx",
+      "bytes": 15112,
+      "sha256": "c44eb932ef6816d0ad774fa834c7579d9ad4402c3e0cfe182970c4615ae19a6d"
+    },
+    {
+      "path": "manuscript/cover_letter_nature.md",
+      "bytes": 9888,
+      "sha256": "ea34baf7d2d665afd99f0aed3b6c12e573fac0fa1bb172b3e600640767b51bd6"
+    },
     {
       "path": "manuscript/main.pdf",
       "bytes": 721737,
