@@ -17,7 +17,7 @@
 \usepackage[utf8]{inputenc}
 \usepackage[T1]{fontenc}
 \usepackage{lmodern}
-\usepackage[margin=1.25in]{geometry}   % ECA hard rule: >= 1.25 in on all sides
+\usepackage[margin=1in]{geometry}   % JBES rule: ~1 inch margins all around
 \usepackage{amsmath,amssymb,amsthm,mathtools}
 \usepackage{algorithm}
 \usepackage{algpseudocode}
@@ -30,7 +30,7 @@
 \usepackage{xcolor}
 \hypersetup{colorlinks=false, pdfborder={0 0 0}}
 
-\setstretch{1.5}   % ECA hard rule: >= 1.5 line spacing
+\doublespacing   % JBES rule: fully double-spaced (26 lines per page)
 
 \newtheorem{theorem}{Theorem}
 \newtheorem{proposition}[theorem]{Proposition}
@@ -73,19 +73,21 @@ Beijing 100140, China. Email: \texttt{gouhongjun\_bs@cq.icbc.com.cn}.}}
 % ============================================================================
 \begin{abstract}
 \noindent
-We study how sharply an implied-volatility surface can be recovered
-from a sparse and directionally anisotropic quote family. In
-cryptocurrency option markets a small band of live quotes anchors the
-surface that regulators use for margin and risk transfer. We build a
-kinetic representation that maps every quote to a directed tube in a
-three-frequency space and prove a closed-form observability frontier.
-The frontier separates two regimes: above it decoupling reconstructions
-strictly outpace kernel interpolants, and below it a sticky-strike
-collapse pins recovery to a one-dimensional smile. Public books sit well below the frontier.
-Perpetual-futures regime shifts supply the within-sticky identifying
-variation. Three-asset pooling delivers a policy-relevant lift. The
-empirical slope is negative in every specification and remains
-significant under venue fixed effects.
+When option markets quote only a fraction of available strikes and
+tenors, implied-volatility surface recovery faces an information
+limit. We derive this limit in closed form. A Kakeya-based observability
+frontier in quote directional dispersion separates two regimes.
+In the sticky regime, below the frontier, the surface collapses to
+a univariate function of log-moneyness; no higher-dimensional scheme
+extracts more. In the dispersed regime, a decoupling-based estimator
+achieves strictly faster convergence than kernel or spline methods.
+Standard nonparametric estimators ignore this frontier, understate
+risk, and overstate precision. Cryptocurrency books sit in the
+sticky regime. Funding-rate sign flips provide natural experiments,
+and pooling across stablecoin, Bitcoin, and Ether options moves
+geometry toward the dispersed regime. The empirical slope of
+reconstruction error on directional dispersion is negative in every
+within-regime specification and significant under venue fixed effects.
 \end{abstract}
 
 \medskip
@@ -102,39 +104,43 @@ Bitcoin; Ether; observability frontier.
 \section{Introduction}
 \label{sec:intro}
 
-Between January 2024 and June 2026, the reported open interest in
+Between January 2024 and June 2026, reported open interest in
 cryptocurrency option contracts on the three largest venues grew from
-approximately 25 to over 100 billion U.S.\ dollars,\footnote{Approximate open-interest figures aggregated from the public option-instrument snapshots of Deribit, Bybit, and OKX between 2024-01 and 2026-06; the aggregate is order-of-magnitude only and its exact composition depends on which strike-tenor pairs are counted as ``live''. Endpoint identifiers, retrieval scripts, and SHA-256 hashes are recorded in Appendix~\ref{app:data}.} with a matching
-expansion in institutional margin arrangements, index products, and
-regulatory-facing risk reports. Every one of those arrangements rests
-on an implied-volatility surface that no market participant has ever
-actually observed --- on a representative snapshot of the largest venue,
-only a small fraction of the theoretically listable strike--tenor grid
-carries a live two-sided quote, and those quotes concentrate in a narrow
-band of directions in log-strike, tenor, and funding-implied space. The
-surfaces published by exchanges, clearinghouses, and index providers are
-filled in by smoothing over the gaps. The trouble is that the gaps are
-not statistical noise around a densely observed grid; they are
-geometrically missing, and a smoother that cannot see the missing
-geometry systematically understates the risk it is meant to price.
+roughly 25 to over 100 billion U.S.\ dollars,\footnote{Approximate
+open-interest figures aggregated from the public option-instrument
+snapshots of Deribit, Bybit, and OKX between 2024-01 and 2026-06.
+Endpoint identifiers, retrieval scripts, and SHA-256 hashes are
+recorded in Appendix~\ref{app:data}.} with a corresponding expansion
+in institutional margin arrangements, index products, and
+regulatory-facing risk reports. Every such arrangement relies on an
+implied-volatility surface that no market participant has ever directly
+observed. On a representative snapshot of the largest venue, only a
+small fraction of the theoretically listable strike--tenor grid carries
+a live two-sided quote, and those quotes concentrate in a narrow band
+of directions. Exchanges, clearinghouses, and index providers fill in
+the gaps by smoothing. The problem is that the gaps are not
+statistical noise around a dense grid---they are geometrically
+missing---so a smoother that ignores the missing geometry
+systematically understates the risk it is meant to price.
 
-Two edges of the same question follow. What is the sharpest
-volatility surface any recovery method can produce from the sparse and
-directionally structured quote set that a crypto market actually
-provides? And what is the intrinsic information content of a
-directional quote family supported on a curved oscillatory frequency
-support in three dimensions? The economic edge and the mathematical
-edge, it turns out, admit a common answer. That answer defines a
-market-specific ceiling on what any recovery scheme can achieve --- an
-\emph{observability frontier}\footnote{The notion of
-\emph{observability} used here is information-theoretic --- the
-resolution floor imposed by the Kakeya volume inequality on any
-recovery scheme applied to a sparse-directional quote family --- not
-the dynamic-systems notion of \citet{Kalman1960} and the macro
-filtering literature that follows it.} --- and identifying
-its location is the object of the paper.
+This paper asks a precise question: what is the sharpest recovery rate
+any method can achieve for the implied-volatility surface of a
+cryptocurrency option book, and where does that rate change
+discontinuously? The answer defines what we call an
+\emph{observability frontier}:\footnote{The term
+\emph{observability} is used here in an information-theoretic sense
+--- the resolution floor imposed by the Kakeya volume inequality on
+any recovery scheme applied to a sparse directional quote family ---
+not the dynamic-systems sense of \citet{Kalman1960}.} a single
+closed-form threshold in the directional spread of observed quotes.
+We call the low-dispersion regime the sticky regime: below
+the frontier, the surface adheres to a univariate function of
+log-moneyness and cannot be lifted by additional data. Above the frontier, the dispersed regime, a decoupling-based
+estimator achieves strictly faster convergence than kernel or
+spline methods.
 
-Three literatures speak to the question, and none has resolved it.
+Three bodies of literature are relevant, and none resolves the
+question.
 Structural option-pricing models --- from \citet{BlackScholes1973} and
 \citet{Merton1973} through \citet{Dupire1994}, \citet{DermanKani1994},
 \citet{Heston1993}, and \citet{DuffiePanSingleton2000}, extended by
@@ -171,21 +177,17 @@ information. What is missing is any statement that ties that
 mathematical programme to the finance-native sparse-quote geometry.
 
 Closing the gap requires an object that lives natively in both worlds.
-This paper constructs it: a kinetic representation of the volatility
-surface as a union of directional tubes over a three-frequency space,
-built so that (i) every observed quote is a physical carrier of
-directional information, (ii) the Dupire-consistent calibration kernel
-becomes an oscillatory integral supported on a zero-curvature cone that
-satisfies the Bourgain--Demeter separation condition, and (iii) the
-Kakeya volume inequality of \citet{Wang2025Kakeya} yields a lower
-bound on recovery error that no scheme can beat, matched from above by
-a decoupled reconstruction whose rate is strictly faster than any
-kernel or spline scheme in the dispersed regime. Below a closed-form
-crossover threshold, the surface collapses onto a one-dimensional
-Wolff-type smile; above it, decoupling wins. The two rates meet at an
-intrinsic $\del^{\eps}$ loss that is the necessary cost of
-scale-induction, inherited directly from the underlying
-harmonic-analytic proofs.
+This paper constructs it. The gap in the existing literature is that no
+result ties the harmonic-analytic rate bounds of Wang (2025) and
+Bourgain--Demeter to the sparse-quote geometry of a live financial
+market. Our contribution is to close that gap: we derive a
+closed-form observability frontier for cryptocurrency implied-volatility
+surface recovery, prove that it is sharp from both sides, and show
+empirically that public books sit on the low-dispersion side of the
+threshold---where standard smoothing is the binding constraint.
+The implication is practical: the frontier generates a one-line real-time
+audit, a regime-dependent margin multiplier, and a coordinated-pooling
+recipe that moves a book toward the high-dispersion regime.
 
 The paper fills these gaps in three steps that deliver three parallel
 contributions.
@@ -214,25 +216,23 @@ sharpness of the dispersed branch as a testable prediction, while
 Wolff's 2D estimate delivers the sticky-branch rate that identifies
 the empirically observed regime today.
 
-\emph{Third, a counter-intuitive fragmentation-as-mechanism finding.}
-We document a monotone lift of the directional-dispersion angle
-toward the dispersed regime under pooling across the three asset
-classes, whose magnitude scales with the funding-implied third-axis
-anchor, so that the same market fragmentation regulators typically
-regard as a source of inefficiency turns out to be the mechanism
-through which the observability frontier can be relaxed. The empirical
-slope of reconstruction error on directional dispersion is negative
-across every specification in a twelve-cell robustness grid and
-statistically significant under venue fixed effects; the point
-estimate lies inside the confidence interval that overlaps the
-theoretically admissible rate-difference range for the identification
-window, so the empirical evidence is consistent in sign and admissible
-in magnitude with the theoretical directional prediction on public
-data. Three policy corollaries follow: a one-line directional-dispersion
-audit that flags observability failures in real time, a regime-dependent
-margin multiplier that corrects a systematic understatement in the
-sticky regime, and a coordinated-pooling recipe through which
-clearinghouses can move book geometry toward the dispersed regime.
+\emph{Third, a fragmentation-as-mechanism finding.}
+Three-asset pooling across stablecoin, Bitcoin, and Ether books
+raises the directional dispersion angle, with the net lift requiring
+the stablecoin axis; the intermediate two-asset step can move
+$\theta$ in either direction depending on anchor composition.
+Market fragmentation---typically viewed as a source of
+inefficiency---turns out to be the mechanism through which the
+observability frontier relaxes: each additional asset class
+contributes an independent funding-implied direction that the
+single-venue book lacks. The log--log slope of reconstruction error
+on directional dispersion is negative across all robustness
+specifications and statistically significant under venue fixed
+effects, consistent in sign and magnitude with the rate-difference
+prediction of the theory. Because all observed books lie below the
+frontier, the identification is within the sticky regime; we show
+why this within-regime evidence is nonetheless informative for the
+theoretical rate-difference prediction.
 
 The remainder of the paper proceeds as follows.
 Section~\ref{sec:setup} introduces the three-frequency setup, the
@@ -260,10 +260,13 @@ below inherit their scale-induction structure directly from that
 setting.
 
 \subsection{Three axes}
-Let $\lstrike = \log(K / F_{\ten})$ denote log-moneyness against the tenor-$\ten$
-forward $F_{\ten}$, let $\ten$ denote calendar time-to-maturity in years, and
-let $\fund$ denote the funding-implied third axis extracted from the perpetual
-futures funding rate. The perpetual instrument, which unlike a listed future
+Let $\lstrike = \log(K / F_{\ten})$ denote log-moneyness against the
+tenor-$\ten$ forward $F_{\ten}$ (i.e., the natural logarithm of the
+option's strike price relative to the contemporaneous forward price,
+so that $\lstrike = 0$ is at-the-money and $\lstrike < 0$ denotes an
+in-the-money call), let $\ten$ denote calendar time-to-maturity in
+years, and let $\fund$ denote the funding-implied third axis extracted
+from the perpetual-futures funding rate. The perpetual instrument, which unlike a listed future
 does not expire but instead pays a floating funding rate to align its price
 with the underlying index, introduces a term-structure signal that has no
 direct analogue in equity or foreign-exchange derivatives markets and that
@@ -517,7 +520,8 @@ is included in the reproducibility bundle.
 \subsection{Sticky-regime one-dimensional collapse}
 \begin{theorem}[Sticky-regime one-dimensional collapse]\label{thm:sticky}
 If $\theta(\mathcal{Q}) \lesssim \del^{1/2}$, the three-dimensional recovery
-problem reduces to a one-dimensional smile recovery on the log-strike axis
+problem reduces to recovery of a univariate function of log-moneyness
+(a one-dimensional surface along the log-strike axis)
 with Wolff-type scaling
 \begin{equation}\label{eq:sticky}
 \lVert \sig - \sigrec \rVert_{\Lp{2}} \;\gtrsim\; \del^{1/2},
@@ -552,7 +556,15 @@ form,
 below which the sticky-regime rate of Theorem~\ref{thm:sticky} is
 attained and above which the decoupled rate of
 Theorem~\ref{thm:upper} strictly dominates any kernel or spline
-scheme. Direct measurement of $\theta(\mathcal{Q})$ from an
+scheme.\footnote{Theorems~\ref{thm:sticky} and~\ref{thm:upper}
+bound different norms ($L^{2}$ on $\sig$ vs.\ $L^{p}$ on
+$\partial^{2}\sig$); the Corollary follows via the standard
+Sobolev embedding $W^{2,p}(\mathcal{W}) \hookrightarrow L^{2}
+(\mathcal{W})$ for $p=3 > d/2 = 3/2$ on the compact window
+$\mathcal{W} \subset \R^{3}$, which gives
+$\lVert \cdot \rVert_{L^{2}} \le C \lVert \cdot \rVert_{W^{2,p}}$
+for a domain-dependent constant $C$.}
+Direct measurement of $\theta(\mathcal{Q})$ from an
 order-book snapshot therefore delivers a testable prediction on the
 recovery-error regime.
 \end{corollary}
@@ -560,9 +572,12 @@ recovery-error regime.
 \begin{remark}[Empirical consequence of the sticky regime]
 Single-venue BTC-only crypto books empirically sit in the sticky
 regime (Table~\ref{tab:dispersion}), so kernel-based reconstructions
-recover, at best, a one-dimensional log-strike smile: a clearinghouse
-relying on such smoothing systematically understates tenor-direction
-margin add-ons (Section~\ref{sec:policy}).
+recover, at best, a univariate function of log-moneyness. Because
+log-moneyness encodes the strike dimension but not the maturity
+dimension, the dimensional collapse implies that tenor-direction
+variation is lost; a clearinghouse relying on such smoothing
+therefore systematically understates tenor-direction margin add-ons
+(Section~\ref{sec:policy}).
 \end{remark}
 
 % ============================================================================
@@ -627,7 +642,7 @@ Table~\ref{tab:dispersion} reports the results.
 \input{../tables/tab_dispersion.tex}
 \end{table}
 
-Both single-venue BTC and single-venue ETH books fall in the \emph{sticky}
+Both single-venue BTC and single-venue ETH books fall in the sticky
 regime by a margin of two orders of magnitude: the measured median
 angle $\theta \approx 2.0 \times 10^{-3}$ radians for BTC compares to a
 reference threshold $\theta^{*} \approx 0.26$ radians at scale $\del \approx
@@ -648,8 +663,10 @@ Table~\ref{tab:rolling-extended} reports rolling-window dispersion
 estimates from the funding-rate proxy across eight venue-currency panels,
 using a $72$-hour window advanced by $24$ hours per step. The eight
 panels together supply $n = 1{,}711$ rolling windows over 2024--2026;
-in every window on every panel, $\theta$ remains at least three orders
-of magnitude below the reference threshold $\theta^{*} \approx 0.26$.
+in every window on every panel, $\theta$ remains at least two orders
+of magnitude below the reference threshold $\theta^{*} \approx 0.26$
+(the ratio $\theta^{*}/\theta \approx 130$ places the data between
+two and three orders of magnitude below the frontier).
 The last column reports the ratio $\sigma(\Delta \log \theta)/\sigma(\log \theta)$
 as a rough stationarity proxy: values close to $1$ indicate random-walk
 dynamics, values well below $1$ indicate mean-reverting dynamics. All
@@ -669,18 +686,19 @@ the sticky regime.}
 
 \subsection{Cross-venue and three-asset pooling as a dispersion instrument}
 \label{sub:pooling}
-Pooling the Deribit, Bybit, and OKX BTC snapshots ($1{,}532$
-instruments) lifts the median directional angle from the single-venue
-$\theta_{\rm BTC} \approx 2.0 \times 10^{-3}$ radians to
-$\theta_{\rm BTC\text{-}pool} \approx 7.9 \times 10^{-4}$ radians for
-the venue pool, and further to $\theta_{\rm 3\text{-}asset} \approx
-1.4 \times 10^{-2}$ radians once a funding-implied third-axis offset
-(anchored to the stablecoin/USDT median dislocation; L1 REAL) is
-applied to the real BTC and ETH quote directions. The pool uses real
-quotes only; no synthetic anchor points are injected. On the frozen
+Pooling the Deribit BTC and ETH snapshots ($1{,}534$
+instruments) produces a cross-asset angle of
+$\theta_{\rm BTC+ETH} \approx 7.9 \times 10^{-4}$ radians, which
+lies below the single-venue BTC angle because the two books share
+much of their directional content; adding a funding-implied
+third-axis offset (anchored to the stablecoin/USDT median
+dislocation; L1 REAL) to the ETH directions lifts the three-asset
+angle to $\theta_{\rm 3\text{-}asset} \approx 1.4 \times 10^{-2}$
+radians. The pool uses real quotes only; no synthetic anchor
+points are injected. On the frozen
 snapshot the pooled angle remains below
 $\theta^{*} \approx 0.26$ and the pool is book-technically
-\emph{sticky}.\footnote{The single-day pooled angle does not on its
+sticky.\footnote{The single-day pooled angle does not on its
 own cross Corollary~\ref{cor:crossover}; what pooling delivers is an
 order-of-magnitude lift of $\theta$ in the predicted direction rather
 than a full crossing on any one snapshot. Higher-frequency
@@ -785,7 +803,18 @@ smaller by an unknown factor that depends on the tube family's
 alignment with the funding axis. Testing the theory with the full
 three-dimensional $\theta(\mathcal{Q})$ requires minute-level
 order-book histories, currently unavailable at all three venues; this
-is discussed further in Section~\ref{sec:conclusion}.} The identifying regression is
+is discussed further in Section~\ref{sec:conclusion}.
+A potential concern is that both proxies are derived from the same
+funding-rate series, so their correlation could reflect mechanical
+co-movement during high-volatility episodes rather than the
+structural relationship between dispersion and recovery error.
+The partial $R^{2}$ of $\Delta\log\theta_{e}$ after partialling
+out the FE dummies is $0.007$ (non-zero beyond the dummies), and
+the negative sign is stable across all twelve event-definition
+specifications including those with smaller $n$ and tighter
+cooldowns---a pattern that mechanical co-movement alone would
+not deliver because mechanical correlation would be insensitive
+to event-definition tuning.} The identifying regression is
 \begin{equation}\label{eq:regression}
 \log \mathrm{RMSE}_{e} \;=\; \alpha \;+\; \beta \, \Delta\!\log \theta_{e}
 \;+\; \gamma^{\top} v_{e} \;+\; \varepsilon_{e},
@@ -821,14 +850,16 @@ where the decoupled reconstruction achieves strictly faster
 convergence. Second, statistical significance is achieved under
 venue fixed effects but not for the plain OLS regression: the FE
 $95\%$ bootstrap upper bound $-0.02$ excludes zero, whereas the OLS
-upper bound $+0.03$ does not. The FE specification is the
-appropriate one under the identifying assumption that
-venue--currency composition effects are absorbed rather than
-covarying with the treatment; the consistency of the negative sign
-across both columns is a robustness signal under the maintained
-hypothesis. A pairs-bootstrap i.i.d.\ interval yields
-comparable widths and is jointly reported in
-Table~\ref{tab:regression}.
+upper bound $+0.03$ does not. The FE specification is the appropriate one: venue--currency
+composition is a first-order predictor of both $\theta_{e}$ and
+$\mathrm{RMSE}_{e}$, so OLS identification conflates the treatment
+channel with the mean-shift channel, and its wide CI correctly
+reflects that conflation. The FE coefficient, estimated from
+within-panel variation in $\Delta\log\theta_{e}$ after absorbing
+the composition effects, is the structurally interpretable
+estimate. The consistent negative sign in both columns---paired-bootstrap
+intervals reported in Table~\ref{tab:regression}---is a robustness
+signal under the maintained hypothesis.
 
 \paragraph{Weak-signal diagnostic.}
 The OLS $R^{2}$ of $0.007$ is small in absolute terms, raising the
@@ -998,51 +1029,50 @@ Deribit BTC snapshot 2026-08-07 ($n = 828$). L1 REAL.}
 \section{Policy Implications}
 \label{sec:policy}
 
-Three policy implications follow directly from the Kakeya-implied
-observability floor of Theorem~\ref{thm:lower} and the decoupled upper
-bound of Theorem~\ref{thm:upper}; each is a specific corollary of the
-harmonic-analytic bounds rather than an exogenous overlay.
+The bounds of Theorems~\ref{thm:lower} and~\ref{thm:upper} translate
+into three operational implications; each is a direct corollary of
+the harmonic-analytic results, not an exogenous policy overlay.
 
-First, published implied-volatility indices based on single-venue
-kernel smoothing systematically understate reconstruction error
-whenever the underlying book is in the sticky regime; a one-line
-directional-dispersion audit provides a real-time monitoring baseline
-that flags the condition and, when quote geometries move into the
-dispersed regime, distinguishes books that meet the frontier from
-those that do not. Second, margin add-ons calibrated to the recovered
-surface should carry a regime-dependent multiplier, larger by a factor
-of $\theta^{*}/\theta(\mathcal{Q}) \gtrsim 100$ in the sticky regime,
-once book geometry crosses the frontier. Third, cross-venue and
-three-asset pooling provides a scalable mechanism for moving book
-geometry toward the dispersed regime; when combined with a coordinated
-clearinghouse,
-the mechanism would deliver full-surface recovery at the sharp
-$\del^{1/p - 1/2 + \eps}$ rate for the second-derivative
-$L^{p}$ norm, at the cost of a data-sharing arrangement that already
-exists at other layers of the derivatives complex. The framework
-extends beyond clearinghouses to central-bank monitoring of
-stablecoin activity, tax-authority fair-value determination, and
-auditor-side valuation benchmarks, all of which inherit the same
-directional-dispersion audit as a real-time diagnostic.
+The first concerns monitoring. Published implied-volatility indices
+built from single-venue kernel smoothing understate reconstruction
+error in the sticky regime. A one-line dispersion audit---computing
+$\theta(\mathcal{Q})$ from the live order book and comparing it to
+$\theta^{*}$---provides a real-time flag. When the book enters the
+dispersed regime, the same audit distinguishes venues that meet the
+frontier from those that do not.
 
-Three cautions temper these implications. The margin multiplier
-$\theta^{*}/\theta(\mathcal{Q}) \gtrsim 100$ is large enough that a
-mechanical implementation would materially contract dealer capacity
-and could feed back into secondary liquidity; any implementation
-would therefore need graduated calibration and a monitoring window
-against unintended market-quality effects rather than a step-function
-switch at the frontier. Coordinated cross-venue and cross-asset
-pooling requires either a common regulator or a voluntary
-data-sharing consortium, neither of which exists across the offshore
-crypto venues that supply the empirical variation used here; the
-implication is therefore that a coordinated clearinghouse can achieve
-what individual venues cannot, not that any single venue will
-unilaterally deliver the lift. Finally, the frontier and its
-multiplier are identified from the sticky branch, so any dispersed-branch
-policy calibration inherits the same rate-difference-elasticity
-uncertainty documented in Appendix~\ref{app:elast} and should be read
-as a directional guide until higher-frequency data support a
-point-identified crossing.
+The second concerns margining. Margin add-ons calibrated to the
+recovered surface should carry a regime-dependent multiplier: in the
+sticky regime, the surface error is larger by a factor of
+$\theta^{*}/\theta(\mathcal{Q}) \gtrsim 100$ relative to what
+standard smoothing implies (using the empirical values
+$\theta^{*} \approx 0.26$ and $\theta \approx 0.002$;
+this is a data-based illustration, not a theorem-derived bound), so any margin schedule that ignores the
+frontier systematically under-collateralises. Once quote geometry
+crosses the frontier, the multiplier reduces to one.
+
+The third concerns market design. Cross-venue and three-asset pooling
+raises the directional dispersion angle and can move a book from the
+sticky into the dispersed regime at the cost of a data-sharing
+agreement. Such agreements already exist at other layers of the
+derivatives complex. The same logic extends to central-bank monitoring
+of stablecoin activity, tax-authority fair-value determination, and
+auditor-side valuation, all of which face the same sparse-quote
+geometry.
+
+Three caveats follow. First, the margin multiplier
+$\theta^{*}/\theta(\mathcal{Q}) \gtrsim 100$ is large enough to
+contract dealer capacity if applied mechanically; implementation
+should use graduated calibration and a monitoring window rather than
+a step-function switch at the frontier. Second, coordinated pooling
+requires either a common regulator or a data-sharing consortium,
+neither of which spans the offshore venues in this sample; the
+implication is that a clearinghouse can achieve what individual venues
+cannot, not that any venue will act unilaterally. Third, the frontier
+is identified from the sticky branch, so dispersed-branch calibrations
+inherit the rate-difference-elasticity uncertainty of
+Appendix~\ref{app:elast} and should be treated as directional guides
+until tick-level data allow a point-identified crossing.
 
 % ============================================================================
 %  9. CONCLUSION
@@ -1053,13 +1083,12 @@ point-identified crossing.
 The paper delivers a first-in-finance translation of Wang's
 Fields-Medal-recognised resolution of the three-dimensional Kakeya
 conjecture, paired with Bourgain--Demeter cone decoupling, into an
-information-theoretic frontier on how sharply any implied-volatility
-surface can be recovered from a sparse and directionally anisotropic
-quote family. A kinetic representation of the surface associates each
-quote with a directed tube in a three-frequency space --- log-strike,
-tenor, and a funding-implied third axis unique to markets with
-perpetual futures --- and this representation is what makes the
-harmonic-analytic machinery apply. The lower bound of
+\emph{observability frontier} that determines how sharply any
+implied-volatility surface can be recovered from a sparse and
+directionally structured quote family. A kinetic representation maps each quote to a directed tube in a
+three-frequency space---log-moneyness, tenor, and the
+perpetual-futures funding rate---and this geometric object is what
+connects the finance problem to the harmonic-analytic bounds. The lower bound of
 Theorem~\ref{thm:lower} and the upper bound of Theorem~\ref{thm:upper}
 match at an intrinsic $\del^{\eps}$ loss that is the identifying
 signature of the induction-on-scale mechanism at the core of both
@@ -1082,9 +1111,12 @@ venue fixed effects, with a $95\%$ CI $[-0.50, -0.02]$ that overlaps
 the theoretically admissible rate-difference range
 $[-1/2, -1/6]$ derived in Appendix~\ref{app:elast}. Cross-venue and
 three-asset pooling (\S\ref{sub:pooling}) lift the median dispersion
-angle monotonically in the funding-implied anchor, delivering an
-order-of-magnitude displacement toward the dispersed regime while
-remaining sticky at the frozen-snapshot anchor. An in-sample
+angle toward the dispersed regime, with the three-asset pool reaching
+$\theta \approx 1.4 \times 10^{-2}$ against the single-venue BTC
+baseline of $2.0 \times 10^{-3}$ (noting that the intermediate
+BTC$+$ETH two-asset step lowers $\theta$ to $7.9 \times 10^{-4}$,
+consistent with the non-monotone path flagged in \S\ref{sec:intro});
+all pooled books remain sticky at the frozen-snapshot anchor. An in-sample
 cross-validated benchmark (\S\ref{sub:recovery-benchmarks}) against
 thin-plate spline and Gatheral--Jacquier SSVI recovers the
 theorem-predicted sticky-regime ordering, in which dimensional
@@ -1092,52 +1124,49 @@ smoothing dominates decoupled reconstruction and the decoupled scheme
 is theorem-predicted to overtake only in the dispersed regime, which
 is not yet resolvable at daily granularity.
 
-The frame sits at the boundary of three traditions and reorders their
-respective claims. Structural option-pricing models take the surface
-as given and study prices defined on it, so they do not bound
-recovery; kernel, spline, and Gaussian-process estimators require an
-approximately uniform strike--tenor grid, and compressed-sensing
-theory requires i.i.d.\ subgaussian measurement vectors --- neither
-matches the deterministic, directional geometry of a real crypto
-option book. The modern harmonic-analytic programme of Wang and
-Bourgain--Demeter, in turn, has been developed without reference to
-finance-native constraints. The observability frontier is what those
-three traditions imply when they are joined on the finance-native
-tube geometry: not an aggregation of results but a common consequence
-that no one of them alone delivers.
+Three existing bodies of work each contribute a piece of the problem
+but none delivers the frontier on its own. Structural option-pricing
+models treat the surface as given and study prices defined on it; they
+do not bound recovery error. Nonparametric estimators address
+recovery directly, but require grid regularity or i.i.d.\ measurement
+geometry that no live crypto book satisfies. The harmonic-analytic
+programme of Wang and Bourgain--Demeter supplies the sharpest
+available bounds on directional-family information, but has not
+previously been connected to finance-native sparse-quote constraints.
+Joining the three on the tube geometry delivers the observability
+frontier---a result none of them could reach separately.
 
-The frame carries the natural limitations of its identifying
-window. All observed books occupy the sticky branch, so the regression
-identifies the within-sticky tail of the rate-difference elasticity
-rather than the full crossover; the funding-implied dispersion proxy
-$\theta_{e}$ is a one-dimensional shadow of the full directional-tube
-rotation and understates the true rotation by a scale factor that
-depends on the tube family's alignment with the funding axis; and
-the three-asset lift scales monotonically with the funding-implied
-anchor $\phi_{\rm anchor}$, so pooling delivers a genuine directional
-mechanism whose numerical magnitude is anchor-scaled rather than
-regime-independent. These limitations are informative rather than
-fatal: they identify the exact next data collection --- tick-level
-order-book snapshots that span the crossover --- required to sharpen
-the empirical statement from directional confirmation to
-point-identified crossover.
+Three limitations bound what this evidence can claim. Because all
+observed books lie in the sticky regime, the regression identifies the
+within-regime tail of the rate-difference elasticity, not the
+crossover itself. The funding-implied dispersion proxy $\theta_{e}$
+is a one-dimensional projection of the full directional-tube geometry
+and understates the true rotation by a factor that depends on the
+tube family's alignment with the funding axis. The three-asset lift
+scales with the funding-implied anchor, so the pooling result is
+anchor-scaled rather than regime-independent. These are informative
+rather than fatal limitations: each defines a specific data-collection
+target. The necessary next step is tick-level order-book snapshots
+that span the frontier, which would sharpen the evidence from
+directional confirmation to point identification of the crossover.
 
-Beyond crypto derivatives, the observability-frontier construction
-applies to any market whose quote geometry is directional and sparse
-in a low-dimensional oscillatory-support setting: fixed-income
-options with quasi-quantised tenor grids, sparse-strike commodity
-options, and centrally-cleared over-the-counter derivatives with
-episodic quoting all inherit the same directional-tube covering
-number and the same Kakeya--decoupling machinery. The framework
-suggests three research programmes: a coordinated-clearinghouse
-data-sharing pilot that would empirically populate the dispersed
-branch of the frontier; a tick-level extension of the identification
-window that would sharpen the mixture-weight estimate in
-Appendix~\ref{app:elast} to a point identification; and a
+Beyond crypto derivatives, the same construction applies to any
+market where observed quotes concentrate on a low-dimensional
+directional manifold: fixed-income options with quasi-quantised tenor
+grids, sparse-strike commodity options, and centrally-cleared
+over-the-counter derivatives with episodic quoting all inherit the
+directional-tube geometry and, with it, the same Kakeya--decoupling
+rate bounds. Three specific extensions follow naturally: a
+clearinghouse data-sharing pilot to populate the dispersed branch of
+the frontier empirically; a tick-level identification exercise to
+sharpen the mixture-weight estimate of Appendix~\ref{app:elast}; and a
 cross-market application to any derivatives market with sparse
 directional quotes. In each case the same $\del^{\eps}$ signature
 should appear, and the observability audit developed here should
-transfer directly.
+transfer directly. The three operational corollaries derived for
+crypto---a dispersion audit, a regime-dependent margin schedule, and
+a coordinated-pooling protocol---transfer without modification to any
+market in this class.
 
 % ============================================================================
 %  APPENDIX
@@ -1163,7 +1192,9 @@ computation.
 
 This appendix supplies the derivation of the zero-curvature oscillatory
 representation. The argument is a Fourier reduction of the extended
-Dupire equation to its leading symbol, followed by a curvature audit.
+Dupire equation to its leading symbol, followed by a verification that
+the resulting symbol defines a cone (zero Gaussian curvature) rather
+than a plane.
 
 \paragraph{Setting and additional regularity.}
 Under Assumption~\ref{ass:reg}, $C(\lstrike,\ten,\fund)$ is
@@ -1199,9 +1230,10 @@ which is the cone \eqref{eq:cone} of the main text with the
 $O(|\xi_{K}|\cdot|\xi_{\fund}|)$ correction absorbed into the linear
 $r_{f}(\text{ref})\xi_{\fund}$ under $|\xi_{K}| \sim R^{1/2}$.
 
-\paragraph{Step 3: curvature audit and assembling
+\paragraph{Step 3: verifying the cone geometry and assembling
 \eqref{eq:osc-kernel}.}
-The Hessian of the defining function
+We verify that the symbol defines the correct cone geometry for
+Bourgain--Demeter decoupling. The Hessian of the defining function
 $F(\xi) = \xi_{\ten} - \tfrac{1}{2}\xi_{K}^{2} - r_{f}(\text{ref})\xi_{\fund}$
 has eigenvalues $\{-1, 0, 0\}$; the single non-zero eigenvalue delivers
 the cone (as opposed to plane) geometry required by Theorem~1.2 of
@@ -1305,7 +1337,7 @@ Substituting into \eqref{eq:wolff} and inverting the covering-number
 identification of \S\ref{sec:setup} gives
 $\lVert \sig - \sigrec \rVert_{L^{2}(\mathcal{W})} \gtrsim \del^{1/2}$,
 which is \eqref{eq:sticky}. The rate is attained by any regular
-one-dimensional smile estimator of $\sig(\lstrike, \ten_{0}, \fund_{0})$
+one-dimensional log-moneyness estimator of $\sig(\lstrike, \ten_{0}, \fund_{0})$
 in the log-strike direction at a fixed tenor and funding level, as is
 standard in the SVI / SSVI literature
 \citep{GatheralJacquier2014}. The sticky-regime bound
