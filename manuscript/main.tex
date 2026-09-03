@@ -78,8 +78,8 @@ tenors, implied-volatility surface recovery faces an information
 limit. We derive this limit in closed form. A Kakeya-based observability
 frontier in quote directional dispersion separates two regimes.
 In the sticky regime, below the frontier, the surface collapses to
-a univariate function of log-moneyness; no higher-dimensional scheme
-extracts more. In the dispersed regime, a decoupling-based estimator
+a curve that varies with strike but loses all maturity information;
+no higher-dimensional scheme extracts more. In the dispersed regime, a decoupling-based estimator
 achieves strictly faster convergence than kernel or spline methods.
 Standard nonparametric estimators ignore this frontier, understate
 risk, and overstate precision. Cryptocurrency books sit in the
@@ -134,8 +134,9 @@ any recovery scheme applied to a sparse directional quote family ---
 not the dynamic-systems sense of \citet{Kalman1960}.} a single
 closed-form threshold in the directional spread of observed quotes.
 We call the low-dispersion regime the sticky regime: below
-the frontier, the surface adheres to a univariate function of
-log-moneyness and cannot be lifted by additional data. Above the frontier, the dispersed regime, a decoupling-based
+the frontier, the surface collapses to a curve that varies with
+strike but loses all maturity information, and cannot be lifted
+by additional data. Above the frontier, the dispersed regime, a decoupling-based
 estimator achieves strictly faster convergence than kernel or
 spline methods.
 
