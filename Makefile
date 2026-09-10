@@ -1,9 +1,9 @@
-# Makefile -- Reproducibility Bundle v5.0
+# Makefile -- Reproducibility Bundle v6.0
 # One-command reproduction. Windows: use `make all` under Git Bash / MSYS2.
 #
 #  Sources: ../datawang/  (frozen 2026-08-07, hashed in MANIFEST.json)
 #  Outputs: results/  tables/  figures/
-#  Manuscript: manuscript/main_eca.{tex,pdf}
+#  Manuscript: manuscript/main.tex -> main.pdf
 #
 #  Steps ordered so that each script only reads outputs produced by
 #  earlier steps (no circular dependencies).

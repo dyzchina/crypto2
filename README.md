@@ -1,26 +1,26 @@
-# Reproducibility Bundle v5.0
+# Reproducibility Bundle v6.0
 
 **Manuscript.** *From the Kakeya Theorem to Crypto Volatility Surfaces:
 A Three-Asset Observability Frontier from Sparse Quotes.*
-**Target.** Nature (initial submission).
+**Target.** Under review (journal under revision).
 **Author.** Hongjun Gou · Industrial and Commercial Bank of China (ICBC).
 **Data snapshot.** 2026-08-07 (frozen).
-**Bundle generated.** 2026-08-14.
+**Bundle generated.** 2026-09-10.
 
 ## What is in this bundle
 
 ```
-reproducibility_bundle_v5.0/
+reproducibility_bundle_v6.0/
 ├── README.md              (this file)
 ├── Makefile               (make all → full reproduction)
 ├── MANIFEST.json          (SHA-256 of every artefact)
 ├── data_charter.md        (L1 REAL / L2 PROXY / L3 SIM-GROUNDED classification)
 ├── manuscript/
-│   ├── main.tex       (34 pp, submission-ready)
+│   ├── main.tex       (36 pp, submission-ready)
 │   ├── main.pdf       (compiled)
-│   ├── cover_letter.tex
-│   ├── cover_letter.pdf
-│   └── refs.bib           (36 journal references, no books, no reports)
+│   ├── Cover_Letter_RES.docx
+│   ├── Cover_Letter_SIAMJFM.docx
+│   └── refs.bib
 ├── scripts/               (13 analysis scripts)
 ├── results/               (12 JSON fact files)
 ├── tables/                (7 auto-generated .tex tables)
@@ -30,7 +30,7 @@ reproducibility_bundle_v5.0/
 ## One-command reproduction
 
 ```bash
-cd reproducibility_bundle_v5.0
+cd reproducibility_bundle_v6.0
 make all       # data → figures → manuscript, 3-pass + bibtex
 ```
 
@@ -85,6 +85,16 @@ this axis end-to-end.
   filenames removed from the body text (retained only in the
   Data Manifest appendix). The v2.0 and v2.3 bundles remain as
   reference archives.
+- **v4.0 / v5.0** (2026-08-17 → 2026-09-09): abstract and introduction
+  harmonisation; plain-language sticky-regime phrasing adopted in the
+  abstract and introduction (technical wording retained in Theorem 9
+  and Remark 11); cover-letter variants added for RES and SIAM JFM
+  with all mathematical symbols removed.
+- **v6.0** (2026-09-10): clean rebuild from the frozen 2026-08-07
+  snapshot. Compilation artefacts (`.aux/.log/.blg/.out`), the
+  anonymous variant, and superseded cover letters removed; all 13
+  analysis scripts and the 3 publication figures regenerated
+  end-to-end; README and MANIFEST refreshed to v6.0.
 
 ## Contact
 

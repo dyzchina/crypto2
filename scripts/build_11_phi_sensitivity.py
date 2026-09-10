@@ -87,9 +87,11 @@ for r in results:
     if phi == 0.0:
         phi_s = "$0$ (no third axis)"
     elif abs(phi - 1.81e-4) < 1e-9:
-        phi_s = f"${phi:.2e}$ (baseline)"
+        phi_s = r"$1.81\times 10^{-4}$ (baseline)"
     else:
-        phi_s = f"${phi:.0e}$"
+        # render as mantissa x 10^exp for readability
+        exp = int(round(math.log10(phi)))
+        phi_s = rf"$1\times 10^{{{exp}}}$"
     theta_s = f"{r['theta_med']:.4e}" if r['theta_med'] else "---"
     lines.append(f"{phi_s} & {r['n']} & {theta_s} & \\emph{{{r['regime']}}} \\\\")
 lines += [

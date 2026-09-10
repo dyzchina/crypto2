@@ -26,7 +26,7 @@ for sub in ("manuscript","scripts","results","tables","figures"):
             # skip office lock files (~$xxx.docx)
             if fp.name.startswith("~$"): continue
             # skip cover letters (journal-specific, not part of the bundle)
-            if fp.name.startswith("cover_letter"): continue
+            if fp.name.lower().startswith("cover_letter"): continue
             files.append(dict(
                 path=str(fp.relative_to(BUNDLE)).replace("\\","/"),
                 bytes=fp.stat().st_size,
@@ -45,9 +45,9 @@ for name in ("data_charter.md","Makefile","README.md"):
 
 total_bytes = sum(f["bytes"] for f in files)
 OUT.write_text(json.dumps(dict(
-    bundle_version="v5.0",
+    bundle_version="v6.0",
     snapshot_date="2026-08-07",
-    manifest_generated="2026-08-19",
+    manifest_generated="2026-09-10",
     total_files=len(files),
     total_bytes=total_bytes,
     files=files,
