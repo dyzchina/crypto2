@@ -169,7 +169,8 @@ enters the standard sparse-recovery toolkit. A third, essentially
 external literature underwent a revolution over the past decade. The
 harmonic-analytic programme of sharp resolution bounds for
 oscillatory integrals on lower-dimensional curved sets --- from
-\citet{BourgainDemeter2015} through \citet{BourgainDemeterGuth2016,
+\citet{BourgainDemeter2015} (whose Theorem~1.2 is the cone estimate
+used below) through \citet{BourgainDemeterGuth2016,
 GuthMaldague2022} and culminating in the three-dimensional Kakeya
 resolution of \citet{Wang2025Kakeya}, recognised by the 2026 Fields
 Medal --- produced the sharpest available bounds on directional-family
@@ -380,11 +381,15 @@ extended surface and is what activates the decoupling inequality in
 \S\ref{sec:main}. Full derivation in Appendix~\ref{app:osc}.
 \end{proof}
 
-\begin{remark}[Why zero-curvature cone, and joint deployment of BD and Kakeya]
-Positive-curvature decoupling \citep[Theorem~1.1]{BourgainDemeter2015}
-sits inside the shadow of the cone case; the present setting requires
-the sharper cone case of \citet{BourgainDemeterGuth2016} and its
-small-cap refinement \citep{GuthMaldague2022}, robust to the
+\begin{remark}[Why the degenerate-curvature case, and joint deployment
+of cone decoupling and Kakeya]
+Both regimes are covered by \citet{BourgainDemeter2015}: their
+Theorem~1.1 treats compact hypersurfaces with positive definite second
+fundamental form, while their Theorem~1.2 treats the cone, which is the
+zero-curvature case. Only the latter is available here, because the
+symbol surface \eqref{eq:cone} is degenerate; the present setting
+therefore requires the cone estimate together with its small-cap
+refinement \citep{GuthMaldague2022}, robust to the
 funding-axis extension. Section~\ref{sec:main} pairs the cone
 decoupling with Wang's three-dimensional Kakeya inequality
 \citep{Wang2025Kakeya}: the former delivers the dispersed-regime upper
@@ -405,8 +410,8 @@ in finance to jointly deploy decoupling and Kakeya on a single problem.
 The three theorems below import structure from three canonical sources:
 Theorem~\ref{thm:lower} from Wang's three-dimensional Kakeya volume
 bound \citep{Wang2025Kakeya}; Theorem~\ref{thm:upper} from
-Bourgain--Demeter cone decoupling \citep{BourgainDemeter2015,
-BourgainDemeterGuth2016} and its small-cap sharpening
+Bourgain--Demeter cone decoupling
+\citep[Theorem~1.2]{BourgainDemeter2015} and its small-cap sharpening
 \citep{GuthMaldague2022}; and Theorem~\ref{thm:sticky} from Wolff's
 two-dimensional Kakeya maximal-function bound \citep{Wolff1995}. The
 $\del^{\eps}$ loss is common to Wang's and Bourgain--Demeter's proofs
@@ -468,7 +473,7 @@ by two Sobolev inversions and remains sharper than any kernel or
 spline scheme in the dispersed regime.\footnote{Formally, we use $p = 3 - o(1)$ and
 absorb the $o(1)$ into the $\eps$ freedom of \eqref{eq:upper}; the
 Bourgain--Demeter cone-decoupling inequality
-\citep{BourgainDemeter2015, BourgainDemeterGuth2016} applies at every
+\citep[Theorem~1.2]{BourgainDemeter2015} applies at every
 $p$ in the range and is sharp up to $\del^{\eps}$ at the endpoint
 under \citet{GuthMaldague2022}.}
 The $\del^{\eps}$ loss is intrinsic to the induction-on-scale mechanism
@@ -477,8 +482,8 @@ driving decoupling and cannot be removed under the stated regularity.
 
 \begin{proof}[Proof sketch]
 Decomposing the ambient frequency space into caps of scale $\del^{1/2}$
-along the cone \eqref{eq:cone}, applying the cone decoupling inequality of
-\citet{BourgainDemeterGuth2016} for each dyadic scale, and stitching the
+along the cone \eqref{eq:cone}, applying the cone decoupling inequality
+\citep[Theorem~1.2]{BourgainDemeter2015} for each dyadic scale, and stitching the
 scale-by-scale estimates via a standard induction-on-scales delivers
 \eqref{eq:upper}. The intrinsic $\del^{\eps}$ loss reflects the fact that
 each dyadic doubling costs a constant factor in the decoupling constant,
@@ -490,7 +495,7 @@ Full details in Appendix~\ref{app:upper}.
 Algorithm~\ref{alg:decoupled} spells out the reconstruction: dyadic
 caps of the cone at width $R^{-1/2}$, cap-wise FFT
 \citep{CarrMadan1999}, and scale-induction composition via
-\citet{BourgainDemeterGuth2016}.
+\citet{BourgainDemeter2015}.
 
 \begin{algorithm}[H]
 \caption{Decoupled reconstruction of $\sig$ from a sparse-directional quote family}
@@ -1243,7 +1248,7 @@ cylinder --- translation-invariant along $\xi_{\fund}$ --- rather than a
 non-degenerate paraboloid. Because the Gaussian curvature vanishes, the
 paraboloid decoupling of \citet[Theorem~1.1]{BourgainDemeter2015} does
 not apply directly, and the argument requires the degenerate-curvature
-(cone-type) decoupling of \citet{BourgainDemeterGuth2016}. The
+(cone-type) decoupling of \citep[Theorem~1.2]{BourgainDemeter2015}. The
 funding-axis correction is
 linear in $\xi_{\fund}$ and does not modify the Hessian --- the cone
 curvature is inherited unchanged from the pure Dupire operator. Two
@@ -1252,7 +1257,7 @@ planes with angular separation $\ge c R^{-1/2}$, so the
 Bourgain--Demeter transversality condition holds. The $O(R^{-1/2})$
 residual in \eqref{eq:cone-reduced} is absorbed into the $c(\eps)$
 constant via the standard perturbation lemma
-\citep[Lemma 2.3]{BourgainDemeterGuth2016}. The amplitude $a$ in
+\citep{BourgainDemeter2015}. The amplitude $a$ in
 \eqref{eq:osc-kernel} is the reduced $\widehat{C}$ times the standard
 change-of-variables Jacobian; the representation holds pointwise on
 the cone up to the $O(R^{-1/2})$ residual absorbed into the
@@ -1290,14 +1295,14 @@ inherited from the induction-on-scales.\qed
 \section{Proof of Theorem~\ref{thm:upper}}\label{app:upper}
 
 Application of the Bourgain--Demeter cone decoupling inequality
-\citep{BourgainDemeterGuth2016} to the Dupire kernel of
+\citep[Theorem~1.2]{BourgainDemeter2015} to the Dupire kernel of
 Proposition~\ref{prop:osc}, combined with induction on scale to accumulate
 the intrinsic $\del^{\eps}$ loss. The effective constant decomposes as
-$c(\eps) = C_{\mathrm{Dup}} \cdot C_{\mathrm{BDG}}(\eps) \cdot
+$c(\eps) = C_{\mathrm{Dup}} \cdot C_{\mathrm{BD}}(\eps) \cdot
 C_{\mathrm{sc}}(\eps) \cdot C_{\mathrm{ind}}(\eps)$, where
 $C_{\mathrm{Dup}} \le \sig_{+}^{2}/\sig_{-}^{2}$ under
-Assumption~\ref{ass:slowvary}; $C_{\mathrm{BDG}}(\eps) = C_{0} \eps^{-A}$
-is the cone-decoupling constant of \citet{BourgainDemeterGuth2016};
+Assumption~\ref{ass:slowvary}; $C_{\mathrm{BD}}(\eps) = C_{0} \eps^{-A}$
+is the cone-decoupling constant of \citet{BourgainDemeter2015};
 $C_{\mathrm{sc}}(\eps) = C_{0}' \eps^{-B}$ is the small-cap
 perturbation cost of \citet{GuthMaldague2022} for the
 $O(R^{-1/2})$ residual in \eqref{eq:cone-reduced}; and
@@ -1307,7 +1312,7 @@ composed $\eps^{-(A+B)}$ power is polynomial and absorbs into the
 $\del^{\eps}$ freedom. The proof consists of a routine dyadic caps
 decomposition of the cone \eqref{eq:cone} at width $\del^{1/2}$,
 cap-wise Fourier inversion via \eqref{eq:osc-kernel}, and stitching by
-\citet[Theorem~1.2]{BourgainDemeterGuth2016}. The absence of a
+\citet[Theorem~1.2]{BourgainDemeter2015}. The absence of a
 $\log(1/\del)$ dimensional factor --- rather than the naive
 per-doubling $\log$ cost --- is precisely why decoupling
 outperforms a straightforward telescoping argument: the induction is
