@@ -74,20 +74,20 @@ Beijing 100140, China. Email: \texttt{gouhongjun\_bs@cq.icbc.com.cn}.}}
 \begin{abstract}
 \noindent
 When option markets leave most available strikes and tenors
-unquoted, implied-volatility surface recovery faces an information
-limit. We derive this limit in closed form. An observability
-frontier in quote directional dispersion separates two regimes.
-In the sticky regime, below the frontier, the surface collapses to
-a curve that varies with strike but loses all maturity information;
-no higher-dimensional scheme extracts more. In the dispersed regime, a decoupling-based estimator
-achieves strictly faster convergence than kernel or spline methods.
-Standard nonparametric estimators ignore this frontier, understate
-hidden risk, and overstate precision. Cryptocurrency books sit in the
-sticky regime. Funding-rate sign flips provide natural experiments,
-and pooling across stablecoin, Bitcoin, and Ether options moves
-geometry toward the dispersed regime. The empirical slope of
-reconstruction error on directional dispersion is negative in every
-within-regime specification and significant under venue fixed effects.
+unquoted, implied-volatility surface recovery is a nonparametric
+problem with structured missingness. We characterize the sharpest
+attainable rate in closed form. An observability frontier in quote
+dispersion separates two regimes. Below it the surface collapses to a
+curve that varies with strike but loses all maturity information.
+Above it a decoupling-based estimator strictly dominates kernel and
+spline schemes; matching upper and lower bounds follow by transferring
+harmonic-analytic inequalities to the quote geometry. Cryptocurrency
+books sit below the frontier, where conventional smoothing understates
+the risk it prices. Funding-rate sign flips supply
+within-regime identifying variation, and pooling stablecoin, Bitcoin,
+and Ether quotes moves geometry toward the dispersed regime. The
+empirical slope is negative in every within-regime specification and
+significant under venue fixed effects.
 \end{abstract}
 
 \medskip
@@ -182,11 +182,13 @@ Closing the gap requires an object that lives natively in both worlds.
 This paper constructs it. The gap in the existing literature is that no
 result ties the harmonic-analytic rate bounds of Wang (2025) and
 Bourgain--Demeter to the sparse-quote geometry of a live financial
-market. Our contribution is to close that gap: we derive a
-closed-form observability frontier for cryptocurrency implied-volatility
-surface recovery, prove that it is sharp from both sides, and show
-empirically that public books sit on the low-dispersion side of the
-threshold---where standard smoothing is the binding constraint.
+market. Our contribution is to close that gap: we transfer the
+harmonic-analytic rate bounds of Wang (2025) and Bourgain--Demeter to
+the sparse-quote geometry, obtaining a closed-form observability
+frontier for cryptocurrency implied-volatility surface recovery that is
+sharp from both sides, and we show empirically that public books sit on
+the low-dispersion side of the threshold---where standard smoothing is
+the binding constraint.
 The implication is practical: the frontier generates a one-line real-time
 audit, a regime-dependent margin multiplier, and a coordinated-pooling
 recipe that moves a book toward the high-dispersion regime.
