@@ -1,7 +1,7 @@
 """
 build_05_rolling.py -- rolling-window dispersion proxy.
 L1 REAL. 72h window, 24h step. Sources: same funding files as build_03.
-Outputs: results/rolling_v50.json + tables/tab_rolling_extended.tex.
+Outputs: results/rolling_v70.json + tables/tab_rolling_extended.tex.
 """
 import json, math
 from pathlib import Path
@@ -68,7 +68,7 @@ for name, wins in rolling.items():
         regime="sticky" if float(np.median(a))<theta_star_ref else "dispersed",
     )
 
-(RES/"rolling_v50.json").write_text(
+(RES/"rolling_v70.json").write_text(
     json.dumps(dict(rolling=rolling, summary=summary),
                indent=2, ensure_ascii=False), encoding="utf-8")
 
@@ -94,4 +94,4 @@ lines += [
 total = sum(s["n"] for s in summary.values())
 print(f"Total rolling windows: {total}")
 for k,v in summary.items(): print(f"  {k}: n={v['n']}, med={v['median']:.4e}, regime={v['regime']}")
-print(f"WROTE {RES/'rolling_v50.json'}")
+print(f"WROTE {RES/'rolling_v70.json'}")

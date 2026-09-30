@@ -1,7 +1,7 @@
 """
 build_04_regression.py -- log-log regression + block bootstrap.
 L1+L2. Regressor: dlog_theta (funding-std proxy); Regressand: log_rmse.
-Outputs: results/regression_v50.json + tables/tab_regression.tex.
+Outputs: results/regression_v70.json + tables/tab_regression.tex.
 """
 import json, math
 from pathlib import Path
@@ -10,7 +10,7 @@ import numpy as np
 BUNDLE = Path(__file__).resolve().parents[1]
 RES = BUNDLE / "results"; TAB = BUNDLE / "tables"
 
-events = json.load(open(RES/"events_v50.json", encoding="utf-8"))
+events = json.load(open(RES/"events_v70.json", encoding="utf-8"))
 E = [e for e in events if math.isfinite(e.get("dlog_theta",float('nan')))
      and math.isfinite(e.get("log_rmse",float('nan')))]
 n = len(E)
@@ -104,7 +104,7 @@ out = dict(
     theoretical_benchmark_range_in_ci_fe=bool(ci_fe[1] < 0 and ci_fe[0] < -1/6),
     n_venues=len(venues), venues=venues, bootstrap_B=B, block_size=BLOCK,
 )
-(RES / "regression_v50.json").write_text(
+(RES / "regression_v70.json").write_text(
     json.dumps(out, indent=2, ensure_ascii=False), encoding="utf-8")
 
 lines = [
@@ -133,4 +133,4 @@ for k,v in out.items():
     if not isinstance(v,list): print(f"{k}: {v}")
 print("CI OLS:", ci_ols)
 print("CI FE:", ci_fe)
-print(f"WROTE {RES/'regression_v50.json'}")
+print(f"WROTE {RES/'regression_v70.json'}")

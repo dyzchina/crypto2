@@ -2,7 +2,7 @@
 build_10_robustness.py -- RR-3: robustness of beta_FE across
 (MIN_RUN, cooldown) grid. Verifies sign stability.
 Grid: MIN_RUN in {4,6,8,10} x cooldown in {24h,48h,96h} = 12 specs.
-Outputs: results/robustness_v50.json + tables/tab_robustness.tex.
+Outputs: results/robustness_v70.json + tables/tab_robustness.tex.
 """
 import json, math
 from pathlib import Path
@@ -127,7 +127,7 @@ for mr in GRID_RUN:
             r["min_run"] = mr; r["cooldown_h"] = cd_h
             grid[f"mr{mr}_cd{cd_h}"] = r
 
-(RES/"robustness_v50.json").write_text(
+(RES/"robustness_v70.json").write_text(
     json.dumps(grid, indent=2, ensure_ascii=False), encoding="utf-8")
 
 # Table: rows = MIN_RUN, cols = cooldown; cells = n, beta_FE (CI)
@@ -154,4 +154,4 @@ sig_neg = sum(1 for r in grid.values() if r["ci_fe_hi"] < 0)
 print(f"12 specifications: {signs_neg} with beta_FE < 0, {sig_neg} with 95% CI upper bound < 0")
 for k, r in grid.items():
     print(f"  {k}: n={r['n']}, beta_FE={r['beta_fe']:.3f}, CI=[{r['ci_fe_lo']:.2f},{r['ci_fe_hi']:.2f}]")
-print(f"WROTE {RES/'robustness_v50.json'}")
+print(f"WROTE {RES/'robustness_v70.json'}")

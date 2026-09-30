@@ -1,7 +1,7 @@
 """
 build_02_dispersion.py -- single-venue directional-dispersion angle theta.
 L1 REAL. Source: datawang/raw_deribit/book_summary_option_{BTC,ETH}.csv.
-Outputs: results/dispersion_v50.json + tables/tab_dispersion.tex +
+Outputs: results/dispersion_v70.json + tables/tab_dispersion.tex +
          tables/tab_dispersion_sensitivity.tex.
 """
 import json, csv, math
@@ -84,7 +84,7 @@ for ccy in ("BTC","ETH"):
         regime="dispersed" if st["theta_med"]>theta_star else "sticky",
     )
 
-(RES / "dispersion_v50.json").write_text(
+(RES / "dispersion_v70.json").write_text(
     json.dumps(out, indent=2, ensure_ascii=False), encoding="utf-8")
 
 # --- tab_dispersion.tex ---
@@ -122,4 +122,4 @@ lines += [
 (TAB / "tab_dispersion_sensitivity.tex").write_text("\n".join(lines), encoding="utf-8")
 
 for k, v in out.items(): print(k, v)
-print(f"WROTE {RES/'dispersion_v50.json'}")
+print(f"WROTE {RES/'dispersion_v70.json'}")

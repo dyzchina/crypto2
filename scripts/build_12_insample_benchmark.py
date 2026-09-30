@@ -168,7 +168,7 @@ out = dict(
     decoupled=dec,
     note="In-sample 5-fold CV; iv reported in decimal (multiply by 100 for pct).",
 )
-(RES / "insample_benchmark_v50.json").write_text(
+(RES / "insample_benchmark_v70.json").write_text(
     json.dumps(out, indent=2, ensure_ascii=False), encoding="utf-8")
 
 # LaTeX table
@@ -197,4 +197,4 @@ print(f"n = {n} observations")
 print(f"Thin-plate spline: RMSE = {tps['rmse_mean']:.4f} +/- {tps['rmse_std']:.4f}")
 print(f"Gatheral SSVI:     RMSE = {ssvi['rmse_mean']:.4f} +/- {ssvi['rmse_std']:.4f}")
 print(f"Decoupled (Alg 1): RMSE = {dec['rmse_mean']:.4f} +/- {dec['rmse_std']:.4f}")
-print(f"WROTE {RES/'insample_benchmark_v50.json'}")
+print(f"WROTE {RES/'insample_benchmark_v70.json'}")

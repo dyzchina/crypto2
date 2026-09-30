@@ -1,4 +1,4 @@
-# Makefile -- Reproducibility Bundle v6.0
+# Makefile -- Reproducibility Bundle v7.0
 # One-command reproduction. Windows: use `make all` under Git Bash / MSYS2.
 #
 #  Sources: ../datawang/  (frozen 2026-08-07, hashed in MANIFEST.json)

@@ -1,36 +1,36 @@
-# Reproducibility Bundle v6.0
+# Reproducibility Bundle v7.0
 
-**Manuscript.** *From the Kakeya Theorem to Crypto Volatility Surfaces:
-A Three-Asset Observability Frontier from Sparse Quotes.*
-**Target.** Under review (journal under revision).
+**Manuscript.** *Hidden Risk in Missing Quotes: Identification Bounds
+for Recovering Crypto Volatility Surfaces.*
+**Target.** Journal under submission.
 **Author.** Hongjun Gou · Industrial and Commercial Bank of China (ICBC).
 **Data snapshot.** 2026-08-07 (frozen).
-**Bundle generated.** 2026-09-10.
+**Bundle generated.** 2026-09-30.
 
 ## What is in this bundle
 
 ```
-reproducibility_bundle_v6.0/
+reproducibility_bundle_v7.0/
 ├── README.md              (this file)
 ├── Makefile               (make all → full reproduction)
 ├── MANIFEST.json          (SHA-256 of every artefact)
 ├── data_charter.md        (L1 REAL / L2 PROXY / L3 SIM-GROUNDED classification)
 ├── manuscript/
-│   ├── main.tex       (36 pp, submission-ready)
-│   ├── main.pdf       (compiled)
-│   ├── Cover_Letter_RES.docx
-│   ├── Cover_Letter_SIAMJFM.docx
+│   ├── main.tex            (37 pp, submission-ready)
+│   ├── main.pdf            (compiled)
+│   ├── main_anonymous.tex  (double-blind copy, author field blank)
+│   ├── main_anonymous.pdf  (compiled)
 │   └── refs.bib
 ├── scripts/               (13 analysis scripts)
-├── results/               (12 JSON fact files)
-├── tables/                (7 auto-generated .tex tables)
+├── results/               (12 JSON fact files, *_v70.json)
+├── tables/                (14 auto-generated .tex tables)
 └── figures/               (3 publication figures × 3 formats)
 ```
 
 ## One-command reproduction
 
 ```bash
-cd reproducibility_bundle_v6.0
+cd reproducibility_bundle_v7.0
 make all       # data → figures → manuscript, 3-pass + bibtex
 ```
 
@@ -95,6 +95,20 @@ this axis end-to-end.
   anonymous variant, and superseded cover letters removed; all 13
   analysis scripts and the 3 publication figures regenerated
   end-to-end; README and MANIFEST refreshed to v6.0.
+- **v7.0** (2026-09-30): submission-ready refresh. Title retargeted to
+  *Hidden Risk in Missing Quotes: Identification Bounds for Recovering
+  Crypto Volatility Surfaces*; abstract and introduction rewritten so
+  the stated contribution matches the paper's actual mathematical
+  provenance (the bounds are transferred from Wang 2025 and
+  Bourgain--Demeter, not derived); cone decoupling attributed to
+  Bourgain--Demeter (2015) Theorem 1.2 rather than to BDG (2016);
+  self-limiting phrasing removed throughout; Table 3 typeset at the
+  same size as the other tables; Algorithm 1 double-subscript error
+  fixed. Version-stamped intermediates renamed `_v50` → `_v70`. All 13
+  analysis scripts rerun from the frozen snapshot and verified
+  key-by-key against v6.0 (7,080 numeric keys, no differences). The
+  manuscript compiles with no errors and no unresolved references;
+  `main_anonymous.pdf` is the double-blind submission copy.
 
 ## Contact
 

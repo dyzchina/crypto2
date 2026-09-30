@@ -1,6 +1,6 @@
 """
 build_figures.py -- 3 publication-grade figures.
-Sources: results/events_v50.json, dispersion_v50.json, pool_venue_v50.json.
+Sources: results/events_v70.json, dispersion_v70.json, pool_venue_v70.json.
 Outputs: figures/fig{1,2,3}.{eps,pdf,png}.
 """
 import json, math
@@ -20,7 +20,7 @@ BUNDLE = Path(__file__).resolve().parents[1]
 RES = BUNDLE / "results"; FIG = BUNDLE / "figures"
 FIG.mkdir(exist_ok=True)
 
-events = json.load(open(RES/"events_v50.json", encoding="utf-8"))
+events = json.load(open(RES/"events_v70.json", encoding="utf-8"))
 E = [e for e in events if math.isfinite(e.get("dlog_theta",float('nan')))
      and math.isfinite(e.get("log_rmse",float('nan')))]
 n = len(E)

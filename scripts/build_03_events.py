@@ -4,7 +4,7 @@ L1 REAL. Sources: funding_perp_{BTC,ETH}.json (Deribit),
                   funding_history_{BTCUSDT,ETHUSDT,SOLUSDT}.json (Bybit),
                   funding_{BTCUSDT,ETHUSDT,SOLUSDT}.json (Binance).
 Rule: sign-flip after >= min_run same-sign obs, min_gap_ms cooldown.
-Outputs: results/events_v50.json + tables/tab_events_summary.tex +
+Outputs: results/events_v70.json + tables/tab_events_summary.tex +
          tables/tab_funding.tex + tables/tab_stable.tex.
 """
 import json, math
@@ -111,7 +111,7 @@ for name, series in sources:
 # drop those with degenerate windows
 valid = [e for e in all_events if e.get("dlog_theta") is not None and math.isfinite(e["dlog_theta"])]
 
-(RES / "events_v50.json").write_text(
+(RES / "events_v70.json").write_text(
     json.dumps(valid, indent=2, ensure_ascii=False), encoding="utf-8")
 
 # --- tab_events_summary.tex ---
@@ -179,11 +179,11 @@ lines += [r"\bottomrule", r"\end{tabular}"]
 (TAB / "tab_stable.tex").write_text("\n".join(lines), encoding="utf-8")
 
 # --- also emit a facts stub ---
-(RES / "funding_facts_v50.json").write_text(
+(RES / "funding_facts_v70.json").write_text(
     json.dumps(dict(funding=funding_stats, stable=stable_stats, per_source=per_source),
                indent=2, ensure_ascii=False), encoding="utf-8")
 
 print(f"TOTAL EVENTS (valid): {len(valid)}")
 print(f"per source:")
 for k,v in per_source.items(): print(f"  {k}: n_obs={v['n_obs']}, n_events={v['n_events']}")
-print(f"WROTE {RES/'events_v50.json'}")
+print(f"WROTE {RES/'events_v70.json'}")

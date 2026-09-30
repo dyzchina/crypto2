@@ -1,10 +1,10 @@
-# Data Charter — Reproducibility Bundle v5.0
+# Data Charter — Reproducibility Bundle v7.0
 
-**Manuscript.** *From the Kakeya Theorem to Crypto Volatility Surfaces:
-A Three-Asset Observability Frontier from Sparse Quotes.*
-Target: Nature (initial submission).
+**Manuscript.** *Hidden Risk in Missing Quotes: Identification Bounds
+for Recovering Crypto Volatility Surfaces.*
+Target: journal under submission.
 Snapshot freeze date: 2026-08-07.
-Charter version: v5.0 (2026-08-17).
+Charter version: v7.0 (2026-09-30).
 
 This charter classifies every empirical claim in the manuscript into
 one of three data levels. The classification is binding: any table,

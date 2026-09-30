@@ -1,7 +1,7 @@
 """
 build_06_benchmark.py -- tercile RMSE benchmark by |dlog theta|.
-L2 PROXY. Uses events_v50.json only.
-Outputs: results/benchmark_v50.json + tables/tab_benchmark_summary.tex.
+L2 PROXY. Uses events_v70.json only.
+Outputs: results/benchmark_v70.json + tables/tab_benchmark_summary.tex.
 """
 import json, math
 from pathlib import Path
@@ -10,7 +10,7 @@ import numpy as np
 BUNDLE = Path(__file__).resolve().parents[1]
 RES = BUNDLE / "results"; TAB = BUNDLE / "tables"
 
-events = json.load(open(RES/"events_v50.json", encoding="utf-8"))
+events = json.load(open(RES/"events_v70.json", encoding="utf-8"))
 valid = [e for e in events if math.isfinite(e.get("dlog_theta",float('nan')))
          and math.isfinite(e.get("log_rmse",float('nan')))]
 
@@ -32,7 +32,7 @@ for name, es in groups.items():
         rmse_median=float(np.median(rmse)), rmse_std=float(np.std(rmse)),
     )
 
-(RES/"benchmark_v50.json").write_text(
+(RES/"benchmark_v70.json").write_text(
     json.dumps(dict(quantiles=dict(q33=q_lo, q66=q_hi), results=results),
                indent=2, ensure_ascii=False), encoding="utf-8")
 
@@ -57,4 +57,4 @@ lines += [
 ]
 (TAB/"tab_benchmark_summary.tex").write_text("\n".join(lines), encoding="utf-8")
 print(json.dumps(results, indent=2))
-print(f"WROTE {RES/'benchmark_v50.json'}")
+print(f"WROTE {RES/'benchmark_v70.json'}")

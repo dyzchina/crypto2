@@ -3,7 +3,7 @@ build_08_three_asset_pool.py -- three-asset pooling.
 L1+L2. Stablecoin third axis is proxied by the funding-implied phi axis
 via CoinGecko daily deviation of DAI/FDUSD.
 Combines BTC + ETH option directions with stablecoin-anchored phi.
-Outputs: results/pool_three_asset_v50.json + tables/tab_pool.tex.
+Outputs: results/pool_three_asset_v70.json + tables/tab_pool.tex.
 """
 import json, csv, math
 from pathlib import Path
@@ -100,7 +100,7 @@ out = dict(
     theta_star_ref=theta_star,
 )
 
-(RES/"pool_three_asset_v50.json").write_text(
+(RES/"pool_three_asset_v70.json").write_text(
     json.dumps(out, indent=2, ensure_ascii=False), encoding="utf-8")
 
 # --- tab_pool.tex ---
@@ -123,4 +123,4 @@ lines += [
 (TAB/"tab_pool.tex").write_text("\n".join(lines), encoding="utf-8")
 
 print(json.dumps(out, indent=2))
-print(f"WROTE {RES/'pool_three_asset_v50.json'}")
+print(f"WROTE {RES/'pool_three_asset_v70.json'}")

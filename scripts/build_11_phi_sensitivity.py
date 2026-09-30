@@ -73,7 +73,7 @@ out = dict(
          "If theta_pool is monotone in phi_anchor, the '3-asset lift' "
          "is a phi-scaled feature rather than a pure geometric effect.",
 )
-(RES / "phi_sensitivity_v50.json").write_text(
+(RES / "phi_sensitivity_v70.json").write_text(
     json.dumps(out, indent=2, ensure_ascii=False), encoding="utf-8")
 
 # LaTeX table
@@ -104,4 +104,4 @@ lines += [
 print(f"phi_anchor sensitivity sweep, {len(levels)} levels:")
 for r in results:
     print(f"  phi={r['phi_anchor']:.2e}: theta={r['theta_med']:.4e} ({r['regime']})")
-print(f"WROTE {RES/'phi_sensitivity_v50.json'}")
+print(f"WROTE {RES/'phi_sensitivity_v70.json'}")

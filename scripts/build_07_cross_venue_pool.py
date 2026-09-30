@@ -2,7 +2,7 @@
 build_07_cross_venue_pool.py -- pool option-quote directions across
 Deribit + Bybit + OKX to compute theta_pool.
 L1 REAL. Sources: option chain snapshots from all three venues.
-Outputs: results/pool_venue_v50.json.
+Outputs: results/pool_venue_v70.json.
 
 Deribit provides mark_iv + underlying_price directly.
 Bybit option_tickers gives markIv + underlyingPrice.
@@ -146,8 +146,8 @@ pool_stats = dict(
     theta_star_ref=theta_star,
 )
 
-(RES/"pool_venue_v50.json").write_text(
+(RES/"pool_venue_v70.json").write_text(
     json.dumps(pool_stats, indent=2, ensure_ascii=False), encoding="utf-8")
 
 print(json.dumps(pool_stats, indent=2))
-print(f"WROTE {RES/'pool_venue_v50.json'}")
+print(f"WROTE {RES/'pool_venue_v70.json'}")

@@ -45,9 +45,9 @@ for name in ("data_charter.md","Makefile","README.md"):
 
 total_bytes = sum(f["bytes"] for f in files)
 OUT.write_text(json.dumps(dict(
-    bundle_version="v6.0",
+    bundle_version="v7.0",
     snapshot_date="2026-08-07",
-    manifest_generated="2026-09-10",
+    manifest_generated="2026-09-30",
     total_files=len(files),
     total_bytes=total_bytes,
     files=files,

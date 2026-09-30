@@ -3,7 +3,7 @@ build_01_snapshot.py -- option chain snapshot statistics.
 L1 REAL. Sources: Deribit book_summary_option_{BTC,ETH}.csv,
 Bybit option_tickers_{BTC,ETH,SOL}.json,
 OKX okx_option_summary_{BTC,ETH,SOL}.json.
-Outputs: results/snapshot_v50.json + tables/tab_snapshot.tex + tab_datasources.tex.
+Outputs: results/snapshot_v70.json + tables/tab_snapshot.tex + tab_datasources.tex.
 """
 import json, csv, math
 from pathlib import Path
@@ -84,7 +84,7 @@ for ccy in ("BTC","ETH","SOL"):
     snapshot[f"okx_{ccy}"] = dict(venue="OKX", ccy=ccy, n_instruments=len(items))
 
 # --- Write facts ---
-(RES / "snapshot_v50.json").write_text(
+(RES / "snapshot_v70.json").write_text(
     json.dumps(snapshot, indent=2, ensure_ascii=False), encoding="utf-8")
 
 # --- tab_snapshot.tex ---
@@ -126,6 +126,6 @@ lines = [
 n_total = sum(s.get("n_instruments",0) for s in snapshot.values())
 print(f"n_total_instruments={n_total}")
 print(f"snapshot keys: {list(snapshot.keys())}")
-print(f"WROTE {RES/'snapshot_v50.json'}")
+print(f"WROTE {RES/'snapshot_v70.json'}")
 print(f"WROTE {TAB/'tab_snapshot.tex'}")
 print(f"WROTE {TAB/'tab_datasources.tex'}")
