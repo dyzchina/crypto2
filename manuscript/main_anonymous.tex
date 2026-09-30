@@ -502,9 +502,9 @@ caps of the cone at width $R^{-1/2}$, cap-wise FFT
 \State \textbf{Cap decomposition.} Partition the cone \eqref{eq:cone} into $O(R)$ caps $\{\tau_{k}\}$ of angular width $R^{-1/2}$.
 \State For each cap $\tau_{k}$, collect the sub-family $\mathcal{Q}_{k} = \{q_{i} : n_{i} \in \tau_{k}\}$ (this is an $O(N_{\del} R^{-1})$-size sub-family).
 \State \textbf{Cap-wise Fourier inversion.} For each $k$, compute a windowed FFT of the cap-restricted quotes: $\widehat{C}_{k} \gets \operatorname{FFT}_{\tau_{k}}(\mathcal{Q}_{k})$.
-\State \textbf{Local reconstruction.} For each $k$, invert the Dupire kernel restricted to $\tau_{k}$: $\sigrec_{k} \gets \operatorname{DupireInverse}(\widehat{C}_{k}, \tau_{k})$.
+\State \textbf{Local reconstruction.} For each $k$, invert the Dupire kernel restricted to $\tau_{k}$: $\hat{\sig}_{\del,k} \gets \operatorname{DupireInverse}(\widehat{C}_{k}, \tau_{k})$.
 \State \textbf{Decoupling composition.} Compose the cap-wise reconstructions via the BD $\ell^{p}$ decoupling:
-$$ \sigrec \gets \left( \sum_{k} \lVert \sigrec_{k} \rVert_{L^{p}}^{p} \right)^{1/p} \cdot D(R, p, \eps) $$
+$$ \sigrec \gets \left( \sum_{k} \lVert \hat{\sig}_{\del,k} \rVert_{L^{p}}^{p} \right)^{1/p} \cdot D(R, p, \eps) $$
 where $D(R, p, \eps)$ is the decoupling constant with $D = O(R^{\eps})$.
 \State \Return $\sigrec$.
 \end{algorithmic}
@@ -881,9 +881,9 @@ $\beta = \mathrm{d}\log\mathrm{RMSE}/\mathrm{d}\log\theta$, not a
 $\delta$-exponent difference. Appendix~\ref{app:elast} derives three
 admissible benchmarks: sticky-branch elasticity $\beta_{\text{sticky}}
 \approx +1$; pure-dispersed elasticity
-$\beta_{\text{disp}}(\eta) = -(1/6)/\eta$, negative for every
-$\eta \in (0, 1/2)$; and rate-difference elasticity across the frontier
-$\beta_{\text{rd}} \in [-1/2, -1/6]$. The identification window
+$\beta_{\text{disp}}(\eta) = -(1/6)/\eta$, negative for every admissible
+$\eta \ge 1/2$; and rate-difference elasticity across the frontier
+$\beta_{\text{rd}} \in [-1/3, 0)$. The identification window
 matches the rate-difference benchmark, since the regression exploits
 sign-flip shocks that push $\theta$ toward but not fully across the
 crossover of Corollary~\ref{cor:crossover}. The FE 95\% CI
@@ -1111,7 +1111,7 @@ proxy on directional dispersion is negative in twelve of twelve
 event-definition specifications and statistically significant under
 venue fixed effects, with a $95\%$ CI $[-0.50, -0.02]$ that overlaps
 the theoretically admissible rate-difference range
-$[-1/2, -1/6]$ derived in Appendix~\ref{app:elast}. Cross-venue and
+$[-1/3, 0)$ derived in Appendix~\ref{app:elast}. Cross-venue and
 three-asset pooling (\S\ref{sub:pooling}) lift the median dispersion
 angle toward the dispersed regime, with the three-asset pool reaching
 $\theta \approx 1.4 \times 10^{-2}$ against the single-venue BTC
@@ -1237,9 +1237,14 @@ $r_{f}(\text{ref})\xi_{\fund}$ under $|\xi_{K}| \sim R^{1/2}$.
 We verify that the symbol defines the correct cone geometry for
 Bourgain--Demeter decoupling. The Hessian of the defining function
 $F(\xi) = \xi_{\ten} - \tfrac{1}{2}\xi_{K}^{2} - r_{f}(\text{ref})\xi_{\fund}$
-has eigenvalues $\{-1, 0, 0\}$; the single non-zero eigenvalue delivers
-the cone (as opposed to plane) geometry required by Theorem~1.2 of
-\citet{BourgainDemeterGuth2016}, and the funding-axis correction is
+has eigenvalues $\{-1, 0, 0\}$. The second fundamental form therefore
+has rank one and the symbol surface is a zero-Gaussian-curvature
+cylinder --- translation-invariant along $\xi_{\fund}$ --- rather than a
+non-degenerate paraboloid. Because the Gaussian curvature vanishes, the
+paraboloid decoupling of \citet[Theorem~1.1]{BourgainDemeter2015} does
+not apply directly, and the argument requires the degenerate-curvature
+(cone-type) decoupling of \citet{BourgainDemeterGuth2016}. The
+funding-axis correction is
 linear in $\xi_{\fund}$ and does not modify the Hessian --- the cone
 curvature is inherited unchanged from the pure Dupire operator. Two
 caps at angular separation $\ge R^{-1/2}$ on the cone have tangent
@@ -1268,7 +1273,11 @@ gives
 $\lVert \sig - \sigrec \rVert_{\Lp{2}(\mathcal{W})} \ge
 |\langle \sig - \sigrec, \Phi^{*}\psi\rangle| /
 \lVert \Phi^{*}\psi \rVert_{\Lp{2}(\R^{3})}$. The numerator is bounded
-below by the volume $|\mathcal{S}_{\del}| \gtrsim \del^{3-\eps}$;
+below by the square root of the volume,
+$|\mathcal{S}_{\del}|^{1/2} \gtrsim \del^{(3-\eps)/2}$
+(the $\Lp{2}$ pairing against the normalised test family
+$\psi/\lVert\psi\rVert_{\Lp{2}}$ scales with the square root of the
+support measure);
 the denominator satisfies
 $\lVert \Phi^{*}\psi \rVert_{\Lp{2}(\R^{3})} \lesssim
 \del^{\alpha/2 - \eps}$ under
@@ -1332,11 +1341,18 @@ which is Wolff's improved 2D Kakeya maximal-function estimate
 \citep[Corollary~1]{Wolff1995}.
 
 \paragraph{From \eqref{eq:wolff} to the $\del^{1/2}$ recovery bound.}
-Since $N_{\del}(\mathcal{S}_{\del}) \asymp \del^{-\alpha}$ with
-$\alpha \in (2, 3)$ in the sticky regime the exponent collapses to the
-2D value $\alpha_{\text{2D}} = 2$ up to a $\del^{\eps}$ loss.
-Substituting into \eqref{eq:wolff} and inverting the covering-number
-identification of \S\ref{sec:setup} gives
+In the two-dimensional reduction a tube of dimensions $1 \times \del$
+has covering number $\del^{-1}$, so the relation
+$N_{\del}(\mathcal{S}_{\del}) \asymp \del^{-\alpha}$ of
+Appendix~\ref{app:setup} reads $N\del^{-1} \asymp \del^{-\alpha}$,
+i.e.\ $N \asymp \del^{-(\alpha-1)}$. Under the sticky hypothesis the
+directional family collapses to the two-dimensional value
+$\alpha_{\text{2D}} = 2$, so $N \asymp \del^{-1}$ up to a $\del^{\eps}$
+loss. Substituting into \eqref{eq:wolff} gives
+$\lVert \sum_{i}\1_{\widetilde{T}_{i}} \rVert_{L^{2}}
+\gtrsim \del \cdot \del^{-1/2} = \del^{1/2}$, and the duality argument
+of Appendix~\ref{app:lower} transfers this lower bound on the tube
+indicator to the reconstruction error,
 $\lVert \sig - \sigrec \rVert_{L^{2}(\mathcal{W})} \gtrsim \del^{1/2}$,
 which is \eqref{eq:sticky}. The rate is attained by any regular
 one-dimensional log-moneyness estimator of $\sig(\lstrike, \ten_{0}, \fund_{0})$
@@ -1360,31 +1376,37 @@ tracks a one-log increase in $\delta$, so the sticky $L^{2}$ rate
 $\delta^{1/2}$ scales linearly in $\log\theta$. On the dispersed
 branch, Theorem~\ref{thm:upper}'s second-derivative rate
 $\delta^{1/p - 1/2}$ for $p=3$ with an identification lever
-$\theta \sim \delta^{\eta}$, $\eta \in (0, 1/2)$, gives
-$\beta_{\text{disp}}(\eta) = (1/p - 1/2)/\eta = -(1/6)/\eta$, negative
-in sign for every $\eta$ but bounded in magnitude by
-$|\beta_{\text{disp}}| \le 1/3$ over the admissible $\eta \ge 1/2$
-neighbourhood of the crossover.
+$\theta \sim \delta^{\eta}$ gives
+$\beta_{\text{disp}}(\eta) = (1/p - 1/2)/\eta = -(1/6)/\eta$,
+negative in sign for every admissible $\eta$. The sticky
+characterisation $\theta \lesssim \delta^{1/2}$ places the crossover at
+$\eta = 1/2$ and restricts the admissible range to $\eta \ge 1/2$,
+over which the magnitude is bounded by
+$|\beta_{\text{disp}}| \le 1/3$.
 The identification window of \S\ref{sub:natural-exp}
 --- sign-flip-driven variation that approaches but does not fully
 cross the frontier --- matches instead a \emph{rate-difference}
-elasticity across the branches. Standard mixture arithmetic delivers
-an admissible negative-sign range
-$\beta_{\text{rd}} \in [-1/2, -1/6]$: $-1/2$ corresponds to shocks
-that carry a book from deep sticky into the dispersed regime, and
-$-1/6$ to marginal, near-crossover shocks. The FE 95\% CI
-$[-0.50, -0.02]$ overlaps this interval on its interior; the point
-estimate $\hat\beta_{\text{FE}} = -0.10$ is consistent with the theory
-in sign and admissible in magnitude under this benchmark, though not
-a precise identification of the mixing weight.
+elasticity across the branches. Writing the effective branch weight as
+$\omega \in [0,1]$ and the effective exponent as
+$s(\omega) = (1-\omega)s_{\text{sticky}} + \omega s_{\text{disp}}$ with
+$s_{\text{sticky}} = 1/2$ and $s_{\text{disp}} = -1/6$, the regression
+elasticity is $\beta = s(\omega)/\eta$. Since $\eta \ge 1/2$ the
+admissible negative-sign range is
+$\beta_{\text{rd}} \in [-1/3, 0)$: the endpoint $-1/3$ is attained at
+the crossover ($\eta = 1/2$) by shocks that carry a book fully into the
+dispersed branch, and the range closes toward zero as the sticky weight
+rises or as $\eta$ grows. The FE 95\% CI $[-0.50, -0.02]$ overlaps this
+interval; the point estimate $\hat\beta_{\text{FE}} = -0.10$ lies inside
+it, consistent with the theory in sign and admissible in magnitude,
+though the branch weight $\omega$ is not point-identified.
 
 \section{Data Manifest}\label{app:data}
 Every reported figure and table is regenerated by a single top-level
 build invocation of the accompanying reproducibility bundle
 (\texttt{make all}). The audit manifest is a SHA-256 hash list of every
 source file and every produced artefact. Snapshot date: 2026-08-07.
-Bundle version: v5.0. Bundle contents: $46$ raw files ($13.07$ MB)
-plus $13$ analysis scripts, $7$ auto-generated tables, $3$ publication
+Bundle version: v6.0. Bundle contents: $46$ raw files ($13.07$ MB)
+plus $13$ analysis scripts, $14$ auto-generated tables, $3$ publication
 figures, and this manuscript. Every empirical claim carries a
 Level~1, Level~2, or Level~3 tag as set out in the bundle's data
 charter, and no Level~3 (grounded-simulation) item is used to support
