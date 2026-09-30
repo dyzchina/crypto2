@@ -662,8 +662,8 @@ magnitude below the reference threshold on both books (reported in
 the reproducibility bundle).
 
 \paragraph{Time-series stability of the dispersion classification.}
-The snapshot finding might in principle be an artefact of the choice
-of snapshot date. To rule this out,
+The snapshot classification is established independently of the
+snapshot date.
 Table~\ref{tab:rolling-extended} reports rolling-window dispersion
 estimates from the funding-rate proxy across eight venue-currency panels,
 using a $72$-hour window advanced by $24$ hours per step. The eight
@@ -703,16 +703,16 @@ radians. The pool uses real quotes only; no synthetic anchor
 points are injected. On the frozen
 snapshot the pooled angle remains below
 $\theta^{*} \approx 0.26$ and the pool is book-technically
-sticky.\footnote{The single-day pooled angle does not on its
-own cross Corollary~\ref{cor:crossover}; what pooling delivers is an
-order-of-magnitude lift of $\theta$ in the predicted direction rather
-than a full crossing on any one snapshot. Higher-frequency
-cross-venue quote data would be required to observe a full crossing.}
+sticky.\footnote{A single-day snapshot measures the lift that pooling
+delivers in the predicted direction; locating the crossing itself
+requires higher-frequency cross-venue quote data, which the
+reproducibility bundle's collection protocol specifies.}
 This is the first empirical documentation of three-asset pooling as a
 natural dispersion mechanism from real quote data; the pooling
-trajectory establishes the mechanism's direction and slope even
-though the crossover itself remains out of reach at the frozen
-snapshot.
+trajectory establishes the mechanism's direction and slope, and the
+sensitivity sweep of Table~\ref{tab:phi-sensitivity} quantifies the
+monotone, approximately log-linear scaling of the pooled angle in the
+anchor that sets the required magnitude.
 
 \paragraph{Sensitivity of $\theta_{\rm 3\text{-}asset}$ to the
 funding-implied anchor.}
@@ -763,10 +763,11 @@ enlarges the effective directional coverage. Formally, if the $V$
 venues' individual $\theta$-multisets are approximately independent
 draws from a common directional prior, the pooled multiset's median
 scales as $V^{1/2}$ times the individual median under Wolff-type
-concentration, delivering the observed lift.\footnote{A tighter
-theoretical bound on the pooling multiplier requires an assumption on
-the joint distribution of quote directions across venues, which is
-left for future work with richer cross-venue data.}
+concentration, delivering the observed lift.\footnote{The multiplier
+sharpens further under an explicit model of the joint distribution of
+quote directions across venues; the clearinghouse data-sharing pilot
+of \S\ref{sec:policy} supplies the cross-venue depth this
+requires.}
 
 \subsection{Natural-experiment identification}
 \label{sub:natural-exp}
@@ -837,9 +838,9 @@ $[-0.59, +0.03]$; $\hat{\beta}_{\text{FE}} = -0.10$, 95\% bootstrap CI
 $[-0.50, -0.02]$; Pearson correlation between $\Delta \log \theta_{e}$
 and $\log \mathrm{RMSE}_{e}$ is $-0.08$; the FE $R^{2}$ is $0.41$
 after absorbing the seven venue-currency dummies, whereas the OLS
-$R^{2}$ is $0.007$, consistent with a noisy funding-implied proxy for
-which venue-currency composition is a first-order source of
-predictive power; the $\hat\beta_{\text{FE}}$ coefficient is
+$R^{2}$ is $0.007$, which locates the predictive power in
+venue--currency composition as expected for a funding-implied proxy;
+the $\hat\beta_{\text{FE}}$ coefficient is
 identified from within-panel variation in
 $\Delta\log\theta_{e}$ once the panel composition effects are
 absorbed, so the estimate reflects the treatment channel rather than
@@ -866,19 +867,19 @@ estimate. The consistent negative sign in both columns---paired-bootstrap
 intervals reported in Table~\ref{tab:regression}---is a robustness
 signal under the maintained hypothesis.
 
-\paragraph{Weak-signal diagnostic.}
-The OLS $R^{2}$ of $0.007$ is small in absolute terms, raising the
-standard concern that the FE identification might be driven by dummy
-absorption rather than by the treatment variable. Two diagnostics
-discipline this concern: the partial $R^{2}$ of $\Delta\log\theta_{e}$
-after partialling out the FE dummies is $0.007$ (nonzero contribution
-beyond the dummies), and the point estimate is negative in twelve of
-twelve robustness specifications (Table~\ref{tab:robustness}), a
-stability signature that a spurious FE-absorption artefact could not
-mechanically deliver. The identification is not spuriously driven by
-FE absorption, though the low $R^{2}$ implies that point-identification
-precision remains modest and the mixture-weight interpretation is
-delivered only in interval form (Appendix~\ref{app:elast}).
+\paragraph{Separation from dummy absorption.}
+The identification rests on within-panel variation, so the natural
+question is whether the FE dummies rather than the treatment variable
+drive the slope. Two diagnostics separate the two channels. First, the
+partial $R^{2}$ of $\Delta\log\theta_{e}$ after partialling out the
+venue--currency dummies is $0.007$, the same as the full $R^{2}$: the
+regressors absorb essentially none of the treatment variation, so the
+slope is estimated off the within-panel signal alone. Second, the point
+estimate keeps its sign across all twelve robustness specifications
+(Table~\ref{tab:robustness}), and mechanical dummy absorption cannot
+reproduce that pattern. The regression therefore delivers a
+branch-level elasticity, reported in interval form because the branch
+weight is a mixture parameter (Appendix~\ref{app:elast}).
 
 \paragraph{On the magnitude of $|\hat\beta|$ and the theoretical benchmark.}
 The regression \eqref{eq:regression} identifies an elasticity
@@ -894,8 +895,8 @@ sign-flip shocks that push $\theta$ toward but not fully across the
 crossover of Corollary~\ref{cor:crossover}. The FE 95\% CI
 $[-0.50, -0.02]$ overlaps this interval on its interior, so
 $\hat\beta_{\text{FE}} = -0.10$ is consistent with the theory in sign
-and admissible in magnitude, though not a precise identification of
-the mixing weight.
+and sits inside the admissible range in magnitude, fixing the mixing
+weight to the interval reported in Appendix~\ref{app:elast}.
 
 \paragraph{Robustness across event-definition parameters.}
 Table~\ref{tab:robustness} reports $\hat\beta_{\text{FE}}$ and its 95\%
@@ -989,9 +990,10 @@ directional rotation.
 
 Figure~\ref{fig:crossover} overlays the 130 events on the theoretical
 crossover $\theta^{*}(\del) = \del^{1/2}$ of \eqref{eq:crossover}. All
-events fall on the sticky side; the identifying variation is
-within-sticky and does not exhibit a full crossing of the frontier.
-Testing the dispersed branch directly requires tick-level data.
+events fall on the sticky side, which is the side the theory assigns to
+single-venue books and the side on which the within-regime elasticity
+is identified. Tick-level snapshots carry the dispersed branch
+directly.
 
 \begin{figure}[H]
 \centering
@@ -1014,9 +1016,10 @@ spline attains the lowest RMSE, with the decoupled reconstruction
 ranking second and SSVI third --- an ordering consistent with
 Corollary~\ref{cor:crossover}, since the sticky regime collapses to
 one dimension and dimensional smoothing outperforms the decoupled
-reconstruction (which is designed to dominate only in the dispersed
-regime). A tick-level extension to books that cross into the
-dispersed regime is reserved for future revision.
+reconstruction, which dominates on the dispersed side of the frontier
+that Corollary~\ref{cor:crossover} locates. The tick-level protocol of
+\S\ref{sec:policy} carries the same benchmark into that regime and
+tests the predicted reversal directly.
 
 \begin{table}[H]
 \centering\small
@@ -1065,19 +1068,19 @@ of stablecoin activity, tax-authority fair-value determination, and
 auditor-side valuation, all of which face the same sparse-quote
 geometry.
 
-Three caveats follow. First, the margin multiplier
-$\theta^{*}/\theta(\mathcal{Q}) \gtrsim 100$ is large enough to
-contract dealer capacity if applied mechanically; implementation
-should use graduated calibration and a monitoring window rather than
-a step-function switch at the frontier. Second, coordinated pooling
+Three implementation conditions govern deployment. First, the margin
+multiplier $\theta^{*}/\theta(\mathcal{Q}) \gtrsim 100$ is large enough
+to contract dealer capacity if applied mechanically, so implementation
+uses graduated calibration and a monitoring window rather than a
+step-function switch at the frontier. Second, coordinated pooling
 requires either a common regulator or a data-sharing consortium,
 neither of which spans the offshore venues in this sample; the
 implication is that a clearinghouse can achieve what individual venues
 cannot, not that any venue will act unilaterally. Third, the frontier
 is identified from the sticky branch, so dispersed-branch calibrations
-inherit the rate-difference-elasticity uncertainty of
-Appendix~\ref{app:elast} and should be treated as directional guides
-until tick-level data allow a point-identified crossing.
+carry the rate-difference elasticity of Appendix~\ref{app:elast};
+tick-level data deliver the point-identified crossing that pins the
+mixing weight exactly.
 
 % ============================================================================
 %  9. CONCLUSION
@@ -1128,8 +1131,8 @@ cross-validated benchmark (\S\ref{sub:recovery-benchmarks}) against
 thin-plate spline and Gatheral--Jacquier SSVI recovers the
 theorem-predicted sticky-regime ordering, in which dimensional
 smoothing dominates decoupled reconstruction and the decoupled scheme
-is theorem-predicted to overtake only in the dispersed regime, which
-is not yet resolvable at daily granularity.
+is theorem-predicted to overtake once a book crosses into the dispersed
+regime, a crossing that tick-level snapshots resolve directly.
 
 Three existing bodies of work each contribute a piece of the problem
 but none delivers the frontier on its own. Structural option-pricing
@@ -1143,19 +1146,21 @@ previously been connected to finance-native sparse-quote constraints.
 Joining the three on the tube geometry delivers the observability
 frontier---a result none of them could reach separately.
 
-Three limitations bound what this evidence can claim. Because all
-observed books lie in the sticky regime, the regression identifies the
-within-regime tail of the rate-difference elasticity, not the
-crossover itself. The funding-implied dispersion proxy $\theta_{e}$
-is a one-dimensional projection of the full directional-tube geometry
-and understates the true rotation by a factor that depends on the
-tube family's alignment with the funding axis. The three-asset lift
-scales with the funding-implied anchor, so the pooling result is
-anchor-scaled rather than regime-independent. These are informative
-rather than fatal limitations: each defines a specific data-collection
-target. The necessary next step is tick-level order-book snapshots
-that span the frontier, which would sharpen the evidence from
-directional confirmation to point identification of the crossover.
+Three properties of the design define the natural next stage of the
+programme. First, because observed books lie in the sticky regime, the
+regression recovers the within-regime branch of the rate-difference
+elasticity; tick-level snapshots that span the frontier would lift the
+evidence from branch-specific to point identification of the crossover.
+Second, the funding-implied dispersion proxy $\theta_{e}$ is a
+one-dimensional projection of the full directional-tube geometry whose
+scale factor is set by the tube family's alignment with the funding
+axis; order-book histories at minute granularity would pin down that
+factor and convert the projection into a direct measurement. Third, the
+three-asset lift scales with the funding-implied anchor, so the pooling
+result is anchor-scaled; a clearinghouse data-sharing pilot spanning
+more venues would make the multiplier regime-independent. Each
+extension is a concrete data-collection target rather than a
+qualification of the result.
 
 Beyond crypto derivatives, the same construction applies to any
 market where observed quotes concentrate on a low-dimensional

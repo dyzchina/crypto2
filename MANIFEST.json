@@ -3,27 +3,27 @@
   "snapshot_date": "2026-08-07",
   "manifest_generated": "2026-09-10",
   "total_files": 56,
-  "total_bytes": 2006607,
+  "total_bytes": 2008906,
   "files": [
     {
       "path": "manuscript/main.pdf",
-      "bytes": 293284,
-      "sha256": "d0d1d352e1e7bc5deb65a8b009d175a741a7fc379c5a8a21163c9bd0a5b0602c"
+      "bytes": 294080,
+      "sha256": "cd2d8ed0f0907777dc36a80b85256c5ab179c37ea5ddce8cc20177681a7da0e5"
     },
     {
       "path": "manuscript/main.tex",
-      "bytes": 76387,
-      "sha256": "cc325dbb12342a80ac71161c833944233b439f214ebbbc5cce214f82868f9f7b"
+      "bytes": 76682,
+      "sha256": "4cedf66d19140ec9bbde3d539f2d1b6ff30ea1ba2532e94cfd198c3d715ffee9"
     },
     {
       "path": "manuscript/main_anonymous.pdf",
-      "bytes": 289494,
-      "sha256": "dbf71e557a7116f6359fb9fbe007faad13d4b2c7536005cf33b95729944dd4ee"
+      "bytes": 290407,
+      "sha256": "69f05339e62028f362c1badf9c06a309a10d9ce9d99b7d630aa102b02fe07316"
     },
     {
       "path": "manuscript/main_anonymous.tex",
-      "bytes": 76257,
-      "sha256": "91cd7a18192a87368fbc060c3f1b04a37e1ead2a066458b3df2850679fb62f54"
+      "bytes": 76552,
+      "sha256": "9908bf132bce60592f2afaef1112c2b63a4fc11b527938b50fb5875bcc3fe835"
     },
     {
       "path": "manuscript/refs.bib",
